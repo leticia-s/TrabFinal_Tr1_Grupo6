@@ -7,6 +7,31 @@ Grupo 6:
 	Filipi Teles da Silva, 12/0117754
 	Christian Braga de Almeida Pires, 12/0028379
 *********************************************************** */
+#include <stdio.h>
+#include <stdint.h>
+#include <stdlib.h>
+#include <string>
+#include <stddef.h>
+#include <iostream>
+#include <sstream>
+using std::string;
+using std::stringstream;
+using namespace std;
+#include<stdbool.h>
+//declaracao de funcoes
+void AplicacaoTransmissora (void);
+void CamadaDeAplicacaoTransmissora (string mensagem);
+void CamadaFisicaTransmissora (int quadro[]);
+int[] CamadaFisicaTransmissoraCodificacaoBinaria (int quadro []);
+int[] CamadaFisicaTransmissoraCodificacaoManchester (int quadro []);
+int[] CamadaFisicaTransmissoraCodificacaoManchesterDiferencial(int quadro []);
+void MeioDeComunicacao (int fluxoBrutoDeBits []);
+void CamadaFisicaReceptora (int quadro[]);
+int[] CamadaFisicaReceptoraCodificacaoBinaria (int quadro []);
+int[] CamadaFisicaReceptoraCodificacaoManchester (int quadro []);
+int[] CamadaFisicaReceptoraCodificacaoManchesterDiferencial(int quadro[]);
+void CamadaDeAplicacaoReceptora (int quadro []);
+void AplicacaoReceptora (string mensagem);
 
 void main (void) {
 AplicacaoTransmissora();
@@ -16,8 +41,7 @@ void AplicacaoTransmissora (void) {
 	cout << "Digite uma mensagem:" << endl;
 	cin >> mensagem;
 	//chama a proxima camada
-	CamadaDeAplicacaoTransmissora(mensagem); //em um exemplo mais
-	realistico, aqui seria dado um SEND do SOCKET
+	CamadaDeAplicacaoTransmissora(mensagem); //em um exemplo mais realistico, aqui seria dado um SEND do SOCKET
 }//fim do metodo AplicacaoTransmissora
 void CamadaDeAplicacaoTransmissora (string mensagem) {
 	//int quadro [] = mensagem //trabalhar com bits!!!
@@ -51,8 +75,7 @@ int[] CamadaFisicaTransmissoraCodificacaoManchester (int quadro []) {
 	//implementacao do algoritmo
 
 }//fim do metodo CamadaFisicaTransmissoraCodificacaoManchester
-int[] CamadaFisicaTransmissoraCodificacaoManchesterDiferencial(int
-quadro []){
+int[] CamadaFisicaTransmissoraCodificacaoManchesterDiferencial(int quadro []){
 	//implementacao do algoritmo
 	
 }//fim do CamadaFisicaTransmissoraCodificacaoManchesterDiferencial
@@ -72,7 +95,7 @@ void MeioDeComunicacao (int fluxoBrutoDeBits []) {
 	//chama proxima camada
 	CamadaFisicaReceptora(fluxoBrutoDeBitsPontoB);
 }//fim do metodo MeioDeTransmissao
-	void CamadaFisicaReceptora (int quadro[]) {
+void CamadaFisicaReceptora (int quadro[]) {
 	int tipoDeDecodificacao = 0; //alterar de acordo o teste
 	int fluxoBrutoDeBits []; //ATENÇÃO: trabalhar com BITS!!!
 	switch (tipoDeDecodificacao) {
