@@ -40,7 +40,7 @@ AplicacaoTransmissora();
 void AplicacaoTransmissora (void) {
 	string mensagem;
 	cout << "Digite uma mensagem:" << endl;
-	cin >> mensagem;
+    getline(cin, mensagem); // cin sozinho nao pega espacos
 	//chama a proxima camada
 	CamadaDeAplicacaoTransmissora(mensagem); //em um exemplo mais realistico, aqui seria dado um SEND do SOCKET
 }//fim do metodo AplicacaoTransmissora
@@ -51,7 +51,6 @@ void CamadaDeAplicacaoTransmissora (string mensagem) {
 	  	bitset<8> b(mensagem.c_str()[i]); // cada caracter tem 8 bits = 4 bytes
 	    binary_output+= b.to_string(); //cada 8 bits(cada caracter) coloca na string
   	}
-	//cout << binary_output;
 	string quadro = binary_output;//trabalhar com bits!!!
 	//chama a proxima camada
 	CamadaFisicaTransmissora(quadro);
