@@ -10,10 +10,11 @@ Grupo 6:
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
-#include <string>
+#include <string.h>
 #include <stddef.h>
 #include <iostream>
 #include <sstream>
+#include <bitset>
 using std::string;
 using std::stringstream;
 using namespace std;
@@ -21,19 +22,19 @@ using namespace std;
 //declaracao de funcoes
 void AplicacaoTransmissora (void);
 void CamadaDeAplicacaoTransmissora (string mensagem);
-void CamadaFisicaTransmissora (int quadro[]);
-int[] CamadaFisicaTransmissoraCodificacaoBinaria (int quadro []);
-int[] CamadaFisicaTransmissoraCodificacaoManchester (int quadro []);
-int[] CamadaFisicaTransmissoraCodificacaoManchesterDiferencial(int quadro []);
-void MeioDeComunicacao (int fluxoBrutoDeBits []);
-void CamadaFisicaReceptora (int quadro[]);
-int[] CamadaFisicaReceptoraCodificacaoBinaria (int quadro []);
-int[] CamadaFisicaReceptoraCodificacaoManchester (int quadro []);
-int[] CamadaFisicaReceptoraCodificacaoManchesterDiferencial(int quadro[]);
-void CamadaDeAplicacaoReceptora (int quadro []);
-void AplicacaoReceptora (string mensagem);
+void CamadaFisicaTransmissora (string quadro);
+string CamadaFisicaTransmissoraCodificacaoBinaria (string quadro );
+string CamadaFisicaTransmissoraCodificacaoManchester (string quadro );
+string CamadaFisicaTransmissoraCodificacaoManchesterDiferencial(string quadro );
+void MeioDeComunicacao (string fluxoBrutoDeBits );
+void CamadaFisicaReceptora (string quadro);
+string CamadaFisicaReceptoraDecodificacaoBinaria (string quadro );
+string CamadaFisicaReceptoraDecodificacaoManchester (string quadro );
+string CamadaFisicaReceptoraDecodificacaoManchesterDiferencial(string quadro);
+void CamadaDeAplicacaoReceptora (string quadro );
+void AplicacaoReceptora(string mensagem);
 
-void main (void) {
+int main () {
 AplicacaoTransmissora();
 }//fim do metodo main
 void AplicacaoTransmissora (void) {
@@ -44,13 +45,20 @@ void AplicacaoTransmissora (void) {
 	CamadaDeAplicacaoTransmissora(mensagem); //em um exemplo mais realistico, aqui seria dado um SEND do SOCKET
 }//fim do metodo AplicacaoTransmissora
 void CamadaDeAplicacaoTransmissora (string mensagem) {
-	//int quadro [] = mensagem //trabalhar com bits!!!
+  	string binary_output;
+  	//converter a mensagem para binario
+  	for (size_t i = 0; i < mensagem.size(); ++i){
+	  	bitset<8> b(mensagem.c_str()[i]); // cada caracter tem 8 bits = 4 bytes
+	    binary_output+= b.to_string(); //cada 8 bits(cada caracter) coloca na string
+  	}
+	//cout << binary_output;
+	string quadro = binary_output;//trabalhar com bits!!!
 	//chama a proxima camada
 	CamadaFisicaTransmissora(quadro);
 }//fim do metodo CamadaDeAplicacaoTransmissora
-void CamadaFisicaTransmissora (int quadro[]) {
+void CamadaFisicaTransmissora (string quadro) {
 	int tipoDeCodificacao = 0; //alterar de acordo o teste
-	int fluxoBrutoDeBits []; //ATENÇÃO: trabalhar com BITS!!!
+	string fluxoBrutoDeBits; //ATENÇÃO: trabalhar com BITS!!!
 	switch (tipoDeCodificacao) {
 		case 0 : //codificao binaria
 		fluxoBrutoDeBits =
@@ -67,15 +75,15 @@ void CamadaFisicaTransmissora (int quadro[]) {
 	}//fim do switch/case
 	MeioDeComunicacao(fluxoBrutoDeBits);
 }//fim do metodo CamadaFisicaTransmissora
-int[] CamadaFisicaTransmissoraCodificacaoBinaria (int quadro []) {
+string CamadaFisicaTransmissoraCodificacaoBinaria (string quadro) {
 	//implementacao do algoritmo
-
+    return quadro;
 }//fim do metodo CamadaFisicaTransmissoraCodificacaoBinaria
-int[] CamadaFisicaTransmissoraCodificacaoManchester (int quadro []) {
+string CamadaFisicaTransmissoraCodificacaoManchester (string quadro) {
 	//implementacao do algoritmo
 
 }//fim do metodo CamadaFisicaTransmissoraCodificacaoManchester
-int[] CamadaFisicaTransmissoraCodificacaoManchesterDiferencial(int quadro []){
+string CamadaFisicaTransmissoraCodificacaoManchesterDiferencial(string quadro) {
 	//implementacao do algoritmo
 	
 }//fim do CamadaFisicaTransmissoraCodificacaoManchesterDiferencial
@@ -83,52 +91,57 @@ int[] CamadaFisicaTransmissoraCodificacaoManchesterDiferencial(int quadro []){
 * comunicacao, passando de um pontoA (transmissor) para um
 * ponto B (receptor)
 */
-void MeioDeComunicacao (int fluxoBrutoDeBits []) {
+void MeioDeComunicacao (string fluxoBrutoDeBits) {
 	//OBS IMPORTANTE: trabalhar com BITS e nao com BYTES!!!
-	int fluxoBrutoDeBitsPontoA[], fluxoBrutoDeBitsPontoB[];
+	string fluxoBrutoDeBitsPontoA, fluxoBrutoDeBitsPontoB;
 	fluxoBrutoDeBitsPontoA = fluxoBrutoDeBits;
-	while (fluxoBrutoDeBitsPontoB.lenght!=
-		fluxoBrutoDeBitsPontoA) {
-		fluxoBrutoBitsPontoB += fluxoBrutoBitsPontoA; //BITS! Sendo
-		transferidos
+	unsigned int FluxoBitABit; 
+	while ((unsigned) fluxoBrutoDeBitsPontoB.size()!= (unsigned) fluxoBrutoDeBitsPontoA.size()) {
+		FluxoBitABit =  fluxoBrutoDeBitsPontoB.size(); //tamanho de B, é exatamente a posicao do bit em A que tem que ser transferido para B
+		fluxoBrutoDeBitsPontoB += fluxoBrutoDeBitsPontoA[FluxoBitABit];  //BITS! Sendo transferidos
 	}//fim do while
 	//chama proxima camada
 	CamadaFisicaReceptora(fluxoBrutoDeBitsPontoB);
 }//fim do metodo MeioDeTransmissao
-void CamadaFisicaReceptora (int quadro[]) {
+void CamadaFisicaReceptora (string quadro) {
 	int tipoDeDecodificacao = 0; //alterar de acordo o teste
-	int fluxoBrutoDeBits []; //ATENÇÃO: trabalhar com BITS!!!
+	string fluxoBrutoDeBits; //ATENÇÃO: trabalhar com BITS!!!
 	switch (tipoDeDecodificacao) {
 		case 0 : //codificao binaria
-		fluxoBrutoDeBits =
-		CamadaFisicaReceptoraDecodificacaoBinaria(quadro);
+		fluxoBrutoDeBits = CamadaFisicaReceptoraDecodificacaoBinaria(quadro);
 		break;
 		case 1 : //codificacao manchester
-		fluxoBrutoDeBits =
-		CamadaFisicaReceptoraDecodificacaoManchester(quadro);
+		fluxoBrutoDeBits = CamadaFisicaReceptoraDecodificacaoManchester(quadro);
 		break;
 		case 2 : //codificacao manchester diferencial
-		fluxoBrutoDeBits =
-		CamadaFisicaReceptoraDecodificacaoManchesterDiferencial(quadro);
+		fluxoBrutoDeBits = CamadaFisicaReceptoraDecodificacaoManchesterDiferencial(quadro);
 		break;
 	}//fim do switch/case
 //chama proxima camada
 	CamadaDeAplicacaoReceptora(fluxoBrutoDeBits);
 }//fim do metodo CamadaFisicaTransmissora
-int[] CamadaFisicaReceptoraCodificacaoBinaria (int quadro []) {
+string CamadaFisicaReceptoraDecodificacaoBinaria (string quadro) {
 	//implementacao do algoritmo para DECODIFICAR
+	return quadro;
 	
 }//fim do metodo CamadaFisicaReceptoraDecodificacaoBinaria
-int[] CamadaFisicaReceptoraCodificacaoManchester (int quadro []) {
+string CamadaFisicaReceptoraDecodificacaoManchester (string quadro) {
 	//implementacao do algoritmo para DECODIFICAR
 	
 }//fim do metodo CamadaFisicaReceptoraDecodificacaoManchester
-int[] CamadaFisicaReceptoraCodificacaoManchesterDiferencial(int quadro[]){
+string CamadaFisicaReceptoraDecodificacaoManchesterDiferencial(string quadro){
 	//implementacao do algoritmo para DECODIFICAR
 	
 }//fim do CamadaFisicaReceptoraDecodificacaoManchesterDiferencial
-void CamadaDeAplicacaoReceptora (int quadro []) {
-	//string mensagem = quadro []; //estava trabalhando com bits
+void CamadaDeAplicacaoReceptora (string quadro) {
+	string mensagem;
+	unsigned int posCaracter = 0; 
+	//tem que pegar a cada 8 bits é um caracter
+	while(quadro[posCaracter] != '\0'){
+		bitset<8> b(quadro.substr(posCaracter,8));
+		mensagem += b.to_ulong(); //estava trabalhando com bits
+		posCaracter += 8;
+	}
 	//chama proxima camada
 	AplicacaoReceptora(mensagem);
 }//fim do metodo CamadaDeAplicacaoReceptora
