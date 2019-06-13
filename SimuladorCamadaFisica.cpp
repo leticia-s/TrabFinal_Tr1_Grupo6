@@ -102,16 +102,17 @@ string CamadaFisicaTransmissoraCodificacaoManchester (string quadro) {
 	
 	string codificada;
 	int t = 0;
-	unsigned int Clock = 0;
+	unsigned int Clock = 0,Clock2 = 0;
 
 	while(quadro[Clock] != '\0'){
 
 		for(i=0;i<2;i++){
-			if (quadro[Clock] == '1' && t== 0) codificada[Clock] == '1';
-			if (quadro[Clock] == '1' && t== 1) codificada[Clock] == '0';
-			if (quadro[Clock] == '0' && t== 1) codificada[Clock] == '1';
-			if (quadro[Clock] == '0' && t== 0) codificada[Clock] == '0';
+			if (quadro[Clock] == '1' && t== 0) codificada[Clock2] == '1';
+			if (quadro[Clock] == '1' && t== 1) codificada[Clock2] == '0';
+			if (quadro[Clock] == '0' && t== 1) codificada[Clock2] == '1';
+			if (quadro[Clock] == '0' && t== 0) codificada[Clock2] == '0';
 			t++;
+			Clock2++;
 		}
 		t = 0;
 		Clock += 1;
@@ -170,14 +171,31 @@ void CamadaFisicaReceptora (string quadro) {
 //
 
 string CamadaFisicaReceptoraDecodificacaoBinaria (string quadro) {
-	//implementacao do algoritmo para DECODIFICAR
+	
 	return quadro;
 	
 }//fim do metodo CamadaFisicaReceptoraDecodificacaoBinaria
 
 
 string CamadaFisicaReceptoraDecodificacaoManchester (string quadro) {
-	//implementacao do algoritmo para DECODIFICAR
+	
+	string decodificada;
+	unsigned int Clock = 0,Clock2 = 0;
+
+	while(quadro[Clock] != '\0'){
+			if (quadro[Clock] == '1' ) decodificada[Clock2] == '1';
+			if (quadro[Clock] == '0' ) decodificada[Clock2] == '0';
+			Clock+=2;
+			Clock2++;
+		}
+		// Não usei clock para fazer o decodifica pq caso o quadro[Clock] seja 1 o decodifica[Clock2] é 1 tmb 
+		// Como o código de Manchester possui a lógica de a cada ciclo de clock 1 bit tranmitido será codificado para 2 sempre 01 ou 10
+		// Caso seja 10 o bit da mensagem original é 1 e caso seja 01 o bit da mensagem original é 0
+		// Isso porque eu tomei como base para o codifica que o clock começa em 0 e vai pra 1 
+		
+	}
+return decodificada;
+
 	
 }//fim do metodo CamadaFisicaReceptoraDecodificacaoManchester
 
