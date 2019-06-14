@@ -1,7 +1,7 @@
 /*************************************************************
 * 		****----NAO ESQUECER DOS COMENTARIOS!------****
 Grupo 6:
-	(Supervisora) Let�cia de Souza Soares, 15/0015178
+	(Supervisora) Leticia de Souza Soares, 15/0015178
 	Thiaggo Ferreira Bispo de Souza, 17/0157024
 	David Potolski Lafeta, 15/0122969 
 	Filipi Teles da Silva, 12/0117754
@@ -16,10 +16,10 @@ Grupo 6:
 #include <iostream>
 #include <sstream>
 #include <bitset>
+#include<stdbool.h>
 using std::string;
 using std::stringstream;
 using namespace std;
-#include<stdbool.h>
 
 //declaracao de funcoes
 
@@ -67,8 +67,8 @@ void CamadaDeAplicacaoTransmissora (string mensagem) {
 
 
 void CamadaFisicaTransmissora (string quadro) {
-	int tipoDeCodificacao = 0; //alterar de acordo o teste
-	string fluxoBrutoDeBits; //ATEN��O: trabalhar com BITS!!!
+	int tipoDeCodificacao = 1; //alterar de acordo o teste
+	string fluxoBrutoDeBits; //ATENCAO: trabalhar com BITS!!!
 	switch (tipoDeCodificacao) {
 		case 0 : //codificao binaria
 			fluxoBrutoDeBits =
@@ -87,9 +87,9 @@ void CamadaFisicaTransmissora (string quadro) {
 }//fim do metodo CamadaFisicaTransmissora
 
 
-//
-//            FUNÇÔES PARA SEREM FEITAS
-//
+// *******************OBSERVACAO IMPORTANTE*********************
+//   QUANDO FOR TESTAR TEM QUE ALTERAR OPCAO DE TESTE NAS DUAS 
+//FUN�OES TANTO CAMADAFISICATRANSMISSORA QUANTO NA RECEPTORA
 
 
 string CamadaFisicaTransmissoraCodificacaoBinaria (string quadro) {
@@ -106,7 +106,7 @@ string CamadaFisicaTransmissoraCodificacaoManchester (string quadro) {
 
 	while(quadro[Clock] != '\0'){
 
-		for(i=0;i<2;i++){
+		for(int i=0;i<2;i++){
 			if (quadro[Clock] == '1' && t== 0) codificada[Clock2] == '1';
 			if (quadro[Clock] == '1' && t== 1) codificada[Clock2] == '0';
 			if (quadro[Clock] == '0' && t== 1) codificada[Clock2] == '1';
@@ -139,7 +139,7 @@ void MeioDeComunicacao (string fluxoBrutoDeBits) {
 	fluxoBrutoDeBitsPontoA = fluxoBrutoDeBits;
 	unsigned int FluxoBitABit; 
 	while ((unsigned) fluxoBrutoDeBitsPontoB.size()!= (unsigned) fluxoBrutoDeBitsPontoA.size()) {
-		FluxoBitABit =  fluxoBrutoDeBitsPontoB.size(); //tamanho de B, � exatamente a posicao do bit em A que tem que ser transferido para B
+		FluxoBitABit =  fluxoBrutoDeBitsPontoB.size(); //tamanho de B, sera exatamente a posicao do bit em A que tem que ser transferido para B
 		fluxoBrutoDeBitsPontoB += fluxoBrutoDeBitsPontoA[FluxoBitABit];  //BITS! Sendo transferidos
 	}//fim do while
 	//chama proxima camada
@@ -148,8 +148,8 @@ void MeioDeComunicacao (string fluxoBrutoDeBits) {
 
 
 void CamadaFisicaReceptora (string quadro) {
-	int tipoDeDecodificacao = 0; //alterar de acordo o teste
-	string fluxoBrutoDeBits; //ATEN��O: trabalhar com BITS!!!
+	int tipoDeDecodificacao = 1; //alterar de acordo o teste
+	string fluxoBrutoDeBits; //ATENCAO: trabalhar com BITS!!!
 	switch (tipoDeDecodificacao) {
 		case 0 : //codificao binaria
 		fluxoBrutoDeBits = CamadaFisicaReceptoraDecodificacaoBinaria(quadro);
@@ -193,7 +193,6 @@ string CamadaFisicaReceptoraDecodificacaoManchester (string quadro) {
 		// Caso seja 10 o bit da mensagem original é 1 e caso seja 01 o bit da mensagem original é 0
 		// Isso porque eu tomei como base para o codifica que o clock começa em 0 e vai pra 1 
 		
-	}
 return decodificada;
 
 	
@@ -211,7 +210,7 @@ string CamadaFisicaReceptoraDecodificacaoManchesterDiferencial(string quadro){
 void CamadaDeAplicacaoReceptora (string quadro) {
 	string mensagem;
 	unsigned int posCaracter = 0; 
-	//tem que pegar a cada 8 bits � um caracter
+	//tem que pegar a cada 8 bits sera um caracter
 	while(quadro[posCaracter] != '\0'){
 		bitset<8> b(quadro.substr(posCaracter,8));
 		mensagem += b.to_ulong(); //estava trabalhando com bits
