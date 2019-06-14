@@ -67,7 +67,7 @@ void CamadaDeAplicacaoTransmissora (string mensagem) {
 
 
 void CamadaFisicaTransmissora (string quadro) {
-	int tipoDeCodificacao = 1; //alterar de acordo o teste
+	int tipoDeCodificacao = 2; //alterar de acordo o teste
 	string fluxoBrutoDeBits; //ATENCAO: trabalhar com BITS!!!
 	switch (tipoDeCodificacao) {
 		case 0 : //codificao binaria
@@ -116,7 +116,6 @@ string CamadaFisicaTransmissoraCodificacaoManchester (string quadro) {
 		t = 0;
 		Clock += 1;
 	}
-			cout << codificada << endl;
 return codificada;
 
 }//fim do metodo CamadaFisicaTransmissoraCodificacaoManchester
@@ -124,6 +123,43 @@ return codificada;
 
 string CamadaFisicaTransmissoraCodificacaoManchesterDiferencial(string quadro) {
 	
+	string codificada;
+	unsigned int Clock = 0;
+
+	if (quadro[Clock] == '1'){ 
+		codificada += '1';
+		codificada += '0';
+	}
+
+	if (quadro[Clock] == '0'){ 
+		codificada += '0';
+		codificada += '1';
+	}
+	Clock++;
+	while(quadro[Clock] != '\0'){
+
+			if (quadro[Clock] == '1' && codificada[(Clock*2)-1] == '1'){
+				codificada += '1';
+				codificada += '0';
+			} 
+			if (quadro[Clock] == '1' && codificada[(Clock*2)-1] == '0'){
+				codificada += '0';
+				codificada += '1';
+			} 
+			if (quadro[Clock] == '0' && codificada[(Clock*2)-1] == '1'){
+				codificada += '0';
+				codificada += '1';
+			} 
+			if (quadro[Clock] == '0' && codificada[(Clock*2)-1] == '0'){
+				codificada += '1';
+				codificada += '0';
+			} 
+
+		Clock += 1;
+	}
+	cout << codificada << endl;
+return codificada;
+
 	
 }//fim do CamadaFisicaTransmissoraCodificacaoManchesterDiferencial
 /* Este metodo simula a transmissao da informacao no meio de
@@ -189,7 +225,6 @@ string CamadaFisicaReceptoraDecodificacaoManchester (string quadro) {
 			if (quadro[Clock] == '0' ) decodificada += '0';
 			Clock+=2;
 		}
-		cout << decodificada << endl;
 		// Não usei clock para fazer o decodifica pq caso o quadro[Clock] seja 1 o decodifica[Clock2] é 1 tmb 
 		// Como o código de Manchester possui a lógica de a cada ciclo de clock 1 bit tranmitido será codificado para 2 sempre 01 ou 10
 		// Caso seja 10 o bit da mensagem original é 1 e caso seja 01 o bit da mensagem original é 0
