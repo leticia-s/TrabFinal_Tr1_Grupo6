@@ -89,7 +89,7 @@ void CamadaFisicaTransmissora (string quadro) {
 
 // *******************OBSERVACAO IMPORTANTE*********************
 //   QUANDO FOR TESTAR TEM QUE ALTERAR OPCAO DE TESTE NAS DUAS 
-//FUN�OES TANTO CAMADAFISICATRANSMISSORA QUANTO NA RECEPTORA
+//FUN�OES TANTO CAMADAFISICATRANSMISSORA QUANTO NA RECEPTORA
 
 
 string CamadaFisicaTransmissoraCodificacaoBinaria (string quadro) {
@@ -117,6 +117,7 @@ string CamadaFisicaTransmissoraCodificacaoManchester (string quadro) {
 		t = 0;
 		Clock += 1;
 	}
+	cout << codificada << endl;
 return codificada;
 
 }//fim do metodo CamadaFisicaTransmissoraCodificacaoManchester
@@ -192,7 +193,7 @@ string CamadaFisicaReceptoraDecodificacaoManchester (string quadro) {
 		// Como o código de Manchester possui a lógica de a cada ciclo de clock 1 bit tranmitido será codificado para 2 sempre 01 ou 10
 		// Caso seja 10 o bit da mensagem original é 1 e caso seja 01 o bit da mensagem original é 0
 		// Isso porque eu tomei como base para o codifica que o clock começa em 0 e vai pra 1 
-		
+		cout << decodificada << endl;
 return decodificada;
 
 	
