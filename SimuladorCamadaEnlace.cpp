@@ -19,7 +19,7 @@ void CamadaEnlaceDadosTransmissoraControleDeErroBitParidadePar (string quadro );
 void CamadaEnlaceDadosTransmissoraControleDeErroBitParidadeImpar (string quadro);
 void CamadaEnlaceDadosTransmissoraControleDeErroCRC (string quadro );
 void CamadaEnlaceDadosTransmissoraControleDeErroCodigoDeHamming (string quadro );
-void MeioDeComunicacao (int fluxoBrutoDeBits );
+void MeioDeComunicacao (string fluxoBrutoDeBits );
 void CamadaEnlaceDadosReceptora (string quadro );
 void CamadaEnlaceDadosReceptoraControleDeErro (string quadro ) ;
 void CamadaEnlaceDadosReceptoraControleDeFluxo (string quadro );
