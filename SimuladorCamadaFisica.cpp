@@ -67,7 +67,7 @@ void CamadaDeAplicacaoTransmissora (string mensagem) {
 
 
 void CamadaFisicaTransmissora (string quadro) {
-	int tipoDeCodificacao = 2; //alterar de acordo o teste
+	int tipoDeCodificacao = 1; //alterar de acordo o teste
 	string fluxoBrutoDeBits; //ATENCAO: trabalhar com BITS!!!
 	switch (tipoDeCodificacao) {
 		case 0 : //codificao binaria
@@ -116,6 +116,8 @@ string CamadaFisicaTransmissoraCodificacaoManchester (string quadro) {
 		t = 0;
 		Clock += 1;
 	}
+
+
 return codificada;
 
 }//fim do metodo CamadaFisicaTransmissoraCodificacaoManchester
@@ -157,7 +159,7 @@ string CamadaFisicaTransmissoraCodificacaoManchesterDiferencial(string quadro) {
 
 		Clock += 1;
 	}
-	cout << codificada << endl;
+
 return codificada;
 
 	
@@ -184,7 +186,7 @@ void MeioDeComunicacao (string fluxoBrutoDeBits) {
 
 
 void CamadaFisicaReceptora (string quadro) {
-	int tipoDeDecodificacao = 2; //alterar de acordo o teste
+	int tipoDeDecodificacao = 1; //alterar de acordo o teste
 	string fluxoBrutoDeBits; //ATENCAO: trabalhar com BITS!!!
 	switch (tipoDeDecodificacao) {
 		case 0 : //codificao binaria
@@ -199,7 +201,6 @@ void CamadaFisicaReceptora (string quadro) {
 	}//fim do switch/case
 //chama proxima camada
 	
-	//	cout << "tesets : "<< fluxoBrutoDeBits << endl;
 	CamadaDeAplicacaoReceptora(fluxoBrutoDeBits);
 }//fim do metodo CamadaFisicaTransmissora
 
@@ -220,7 +221,7 @@ string CamadaFisicaReceptoraDecodificacaoManchester (string quadro) {
 	string decodificada;
 	unsigned int Clock = 0;
 
-	while(quadro[Clock] < quadro.length()){
+	while(quadro[Clock] != '\0'){
 			if (quadro[Clock] == '1' ) decodificada += '1';
 			if (quadro[Clock] == '0' ) decodificada += '0';
 			Clock+=2;
