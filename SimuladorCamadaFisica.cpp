@@ -184,7 +184,7 @@ void MeioDeComunicacao (string fluxoBrutoDeBits) {
 
 
 void CamadaFisicaReceptora (string quadro) {
-	int tipoDeDecodificacao = 1; //alterar de acordo o teste
+	int tipoDeDecodificacao = 2; //alterar de acordo o teste
 	string fluxoBrutoDeBits; //ATENCAO: trabalhar com BITS!!!
 	switch (tipoDeDecodificacao) {
 		case 0 : //codificao binaria
@@ -237,7 +237,32 @@ return decodificada;
 
 
 string CamadaFisicaReceptoraDecodificacaoManchesterDiferencial(string quadro){
-	//implementacao do algoritmo para DECODIFICAR
+	
+	string decodificada;
+	unsigned int Clock = 0;
+		
+		if (quadro[Clock] == '1' ){
+				decodificada += '1';
+				decodificada += '0';
+		} 
+		if (quadro[Clock] == '0' ){
+			decodificada += '0';
+			decodificada += '1';
+		}
+	Clock++;
+	cout << "A mensagem recebida foi:" << decodificada << endl;
+
+	while(quadro[Clock] < (quadro.length()-1)){
+			if (quadro[Clock] ==  quadro[Clock-2]){
+				decodificada += '0';
+			} 
+			if (quadro[Clock] != quadro[Clock-2]){
+				decodificada += '1';
+			} 
+			Clock+=2;
+		}
+		
+return decodificada;
 	
 }//fim do CamadaFisicaReceptoraDecodificacaoManchesterDiferencial
 
