@@ -57,7 +57,7 @@ void CamadaDeAplicacaoTransmissora (string mensagem) {
   	string binary_output;
   	//converter a mensagem para binario
   	for (size_t i = 0; i < mensagem.size(); ++i){
-	  	bitset<8> b(mensagem.c_str()[i]); // cada caracter tem 8 bits => 4 bytes
+	  	bitset<8> b(mensagem.c_str()[i]); // cada caracter tem 8 bits 
 	    binary_output+= b.to_string(); //cada 8 bits(cada caracter) coloca na string
   	}
 	string quadro = binary_output;//trabalhar com bits!!!
