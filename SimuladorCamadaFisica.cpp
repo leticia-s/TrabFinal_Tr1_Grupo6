@@ -242,17 +242,16 @@ string CamadaFisicaReceptoraDecodificacaoManchesterDiferencial(string quadro){
 	unsigned int Clock = 0;
 		
 		if (quadro[Clock] == '1' ){
-				decodificada += '1';
-				decodificada += '0';
+				decodificada += '1';;
 		} 
 		if (quadro[Clock] == '0' ){
 			decodificada += '0';
-			decodificada += '1';
+			;
 		}
-	Clock++;
-	cout << "A mensagem recebida foi:" << decodificada << endl;
+	Clock+=2;
+	
 
-	while(quadro[Clock] < (quadro.length()-1)){
+	while(quadro[Clock] != '\0'){
 			if (quadro[Clock] ==  quadro[Clock-2]){
 				decodificada += '0';
 			} 
@@ -261,7 +260,6 @@ string CamadaFisicaReceptoraDecodificacaoManchesterDiferencial(string quadro){
 			} 
 			Clock+=2;
 		}
-		
 return decodificada;
 	
 }//fim do CamadaFisicaReceptoraDecodificacaoManchesterDiferencial
