@@ -1,5 +1,5 @@
 /*************************************************************
-* 		****----NAO ESQUECER DOS COMENTARIOS!------****
+* 		****----Simulador da Camada Fisica - TR1 ------****
 Grupo 6:
 	(Supervisora) Leticia de Souza Soares, 15/0015178
 	Thiaggo Ferreira Bispo de Souza, 17/0157024
