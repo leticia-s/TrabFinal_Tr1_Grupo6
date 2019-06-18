@@ -10,9 +10,7 @@ Grupo 6:
  #include "SimuladorCamadaFisica.cpp"  // inclusao das funcoes da camada fisica
  
  //declaracao de funcoes   --- Nao e para fazer o de Enquadramento
-void CamadaEnlaceDadosTransmissora (string quadro);
-void CamadaEnlaceDadosTransmissoraControleDeErro (string quadro );
-void CamadaEnlaceDadosTransmissoraControleDeFluxo (string quadro );
+
 void CamadaEnlaceDadosTransmissora (string quadro);
 void CamadaEnlaceDadosTransmissoraControleDeErro (string quadro );
 void CamadaEnlaceDadosTransmissoraControleDeErroBitParidadePar (string quadro );
@@ -20,9 +18,6 @@ void CamadaEnlaceDadosTransmissoraControleDeErroBitParidadeImpar (string quadro)
 void CamadaEnlaceDadosTransmissoraControleDeErroCRC (string quadro );
 void CamadaEnlaceDadosTransmissoraControleDeErroCodigoDeHamming (string quadro );
 void MeioDeComunicacao (string fluxoBrutoDeBits );
-void CamadaEnlaceDadosReceptora (string quadro );
-void CamadaEnlaceDadosReceptoraControleDeErro (string quadro ) ;
-void CamadaEnlaceDadosReceptoraControleDeFluxo (string quadro );
 void CamadaEnlaceDadosReceptora (string quadro);
 void CamadaEnlaceDadosReceptoraControleDeErro (string quadro );
 void CamadaEnlaceDadosReceptoraControleDeErroBitDeParidadePar (string quadro );
@@ -30,19 +25,6 @@ void CamadaEnlaceDadosReceptoraControleDeErroBitDeParidadeImpar (string quadro )
 void CamadaEnlaceDadosReceptoraControleDeErroCRC (string quadro ) ;
 void CamadaEnlaceDadosReceptoraControleDeErroCodigoDeHamming (string quadro );
  
-/* **********************************************************************
-*******************Controle de Erro - Transmissão************************
-************************************************************************/
-
-void CamadaEnlaceDadosTransmissora (string quadro) {
- //algum codigo aqui
-}//fim do metodo CamadaEnlaceDadosTransmissora
-void CamadaEnlaceDadosTransmissoraControleDeErro (string quadro ) {
-//algum codigo aqui
-}//fim do metodo CamadaEnlaceDadosTransmissoraControleDeErro
-void CamadaEnlaceDadosTransmissoraControleDeFluxo (string quadro ) {
-//algum codigo aqui
-}//fim do metodo CamadaEnlaceDadosTransmissoraControleDeFluxo
 
 /* **********************************************************************
 *******************Controle de Erro - Transmissão************************
@@ -50,9 +32,7 @@ void CamadaEnlaceDadosTransmissoraControleDeFluxo (string quadro ) {
 
 
 void CamadaEnlaceDadosTransmissora (string quadro ) {
-	CamadaEnlaceDadosTransmissoraEnquadramento(quadro)
 	CamadaEnlaceDadosTransmissoraControleDeErro(quadro);
-	CamadaEnlaceDadosTransmissoraControleDeFluxo(quadro);
 	//chama proxima camada
 	CamadaFisicaTransmissora(quadro);
 }//fim do metodo CamadaEnlaceDadosTransmissora
@@ -125,26 +105,8 @@ void MeioDeComunicacao (string fluxoBrutoDeBits ) {
 *******************Controle de Erro - Recepção***************************
 ************************************************************************/
 
-void CamadaEnlaceDadosReceptora (string quadro ) {
- //algum codigo aqui
-}//fim do metodo CamadaEnlaceReceptora
-void CamadaEnlaceDadosReceptoraEnquadramento (string quadro ) {
- //algum codigo aqui
-}//fim do metodo CamadaEnlaceDadosReceptoraEnquadramento
-void CamadaEnlaceDadosReceptoraControleDeErro (string quadro ) {
- //algum codigo aqui
-}//fim do metodo CamadaEnlaceDadosReceptoraControleDeErro
-void CamadaEnlaceDadosReceptoraControleDeFluxo (string quadro ) {
- //algum codigo aqui
-}//fim do metodo CamadaEnlaceDadosReceptoraControleDeFluxo
-
-/* **********************************************************************
-*******************Controle de Erro - Recepção***************************
-************************************************************************/
-
 void CamadaEnlaceDadosReceptora (string quadro) {
 	 CamadaDeEnlaceTransmissoraControleDeErro(quadro);
-	 CamadaDeEnlaceTransmissoraControleDeFluxo(quadro);
 	 //chama proxima camada
 	 CamadaDeAplicacaoReceptora(quadro);
 }//fim do metodo CamadaEnlaceDadosReceptora

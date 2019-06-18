@@ -22,7 +22,7 @@ using std::stringstream;
 using namespace std;
 
 //declaracao de funcoes
-
+string lerStringArquivo(string mensagem);
 void AplicacaoTransmissora (void);
 void CamadaDeAplicacaoTransmissora (string mensagem);
 void CamadaFisicaTransmissora (string quadro);
@@ -43,11 +43,28 @@ int main () {
 AplicacaoTransmissora();
 }//fim do metodo main
 
-
+string lerStringArquivo(string mensagem){
+	char caracter;
+	FILE *ptr;
+	//ler Arquivo txt
+	ptr = fopen("text_string.txt","r"); //colocar nome do arquivo txt para ser lido
+	if (ptr == NULL){
+    	printf("Problemas na abertura do arquivo\n");
+    	exit(0);
+	}
+	
+	while (!feof(ptr)){   	
+			fread(&caracter,sizeof(char),1,ptr); // ler caracter por caracter
+			mensagem += caracter;
+	}
+    fclose(ptr);
+    return mensagem;
+};
 void AplicacaoTransmissora (void) {
 	string mensagem;
-	cout << "Digite uma mensagem:" << endl;
-    getline(cin, mensagem); // cin sozinho nao pega espacos
+	//cout << "Digite uma mensagem:" << endl;
+    //getline(cin, mensagem); // cin sozinho nao pega espacos
+    mensagem += lerStringArquivo(mensagem); 
 	//chama a proxima camada
 	CamadaDeAplicacaoTransmissora(mensagem); //em um exemplo mais realistico, aqui seria dado um SEND do SOCKET
 }//fim do metodo AplicacaoTransmissora
