@@ -6,6 +6,8 @@ Grupo 6:
 	David Potolski Lafeta, 15/0122969 
 	Filipi Teles da Silva, 12/0117754
 	Christian Braga de Almeida Pires, 12/0028379
+	
+	link repositorio do Github: https://github.com/leticia-s/TrabFinal_Tr1_Grupo6
 *********************************************************** */
 
 #include <stdio.h>
@@ -74,7 +76,7 @@ void AplicacaoTransmissora (void) {
 			cout << "tipo de codificacao invalida!" << endl;
 	}
 	//ler de um arquivo
-	mensagem += lerStringArquivo(mensagem); 
+	mensagem = lerStringArquivo(mensagem); 
 	//cout << "Digite uma mensagem:" << endl;
     //getline(cin, mensagem); // cin sozinho nao pega espacos
 	//chama a proxima camada
