@@ -157,7 +157,7 @@ return codificada;
 string CamadaFisicaTransmissoraCodificacaoManchesterDiferencial(string quadro) {
 	
 	string codificada;
-	unsigned int indice = 0;
+	unsigned int indice = 0; 
     //se primeiro bit do quadro for 0
 	if (quadro[indice] == '1'){ 
 		codificada += '1';
@@ -276,11 +276,11 @@ string CamadaFisicaReceptoraDecodificacaoManchesterDiferencial(string quadro){
 	
     // verifica restantes dos bits do quadro nas posicoes pares (0,2,4,6...) 
 	while(quadro[indice] != '\0'){
-		    //se posicao par do quadro atual for igual a posicao par do quadro anterior
+		    //se posicao par do quadro atual for igual a posicao par anterior do quadro
 			if (quadro[indice] ==  quadro[indice-2]){
 				decodificada += '0';
 			} 
-		    //se posicao par do quadro atual for diferente a posicao par do quadro anterior
+		    //se posicao par do quadro atual for diferente a posicao par anterior do quadro
 			if (quadro[indice] != quadro[indice-2]){
 				decodificada += '1';
 			} 
