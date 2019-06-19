@@ -25,7 +25,7 @@ using namespace std;
 
 //declaracao de funcoes
 string lerStringArquivo(string mensagem);
-void AplicacaoTransmissora (void);
+void AplicacaoTransmissora ();
 void CamadaDeAplicacaoTransmissora (string mensagem);
 void CamadaFisicaTransmissora (string quadro);
 string CamadaFisicaTransmissoraCodificacaoBinaria (string quadro );
@@ -42,9 +42,11 @@ void AplicacaoReceptora(string mensagem);
 //variavel global para o tipo de codificacao
 int tipo_de_codific;
 
-int main () {
-AplicacaoTransmissora();
-}//fim do metodo main
+// int main () {
+// string q = "10011001";
+// //AplicacaoTransmissora();
+// CamadaEnlaceDadosReceptoraControleDeErro(q);
+// }//fim do metodo main
 
 string lerStringArquivo(string mensagem){
 	char caracter;
@@ -64,7 +66,7 @@ string lerStringArquivo(string mensagem){
     return mensagem;
 };//fim do metodo lerStringArquivo
 
-void AplicacaoTransmissora (void) {
+void AplicacaoTransmissora () {
 	string mensagem;
 	tipo_de_codific = -1; //valor inicial pra condicao while
 	//while para selecionar o tipo de codificacao
@@ -196,18 +198,18 @@ return codificada;
 
 /////////////////////////////////////////////////////////////////////////////////////
 
-void MeioDeComunicacao (string fluxoBrutoDeBits) {
-	//OBS IMPORTANTE: trabalhar com BITS e nao com BYTES!!!
-	string fluxoBrutoDeBitsPontoA, fluxoBrutoDeBitsPontoB;
-	fluxoBrutoDeBitsPontoA = fluxoBrutoDeBits;
-	unsigned int FluxoBitABit; 
-	while ((unsigned) fluxoBrutoDeBitsPontoB.size()!= (unsigned) fluxoBrutoDeBitsPontoA.size()) {
-		FluxoBitABit =  fluxoBrutoDeBitsPontoB.size(); //tamanho de B, sera exatamente a posicao do bit em A que tem que ser transferido para B
-		fluxoBrutoDeBitsPontoB += fluxoBrutoDeBitsPontoA[FluxoBitABit];  //BITS! Sendo transferidos
-	}//fim do while
-	//chama proxima camada
-	CamadaFisicaReceptora(fluxoBrutoDeBitsPontoB);
-}//fim do metodo MeioDeTransmissao
+//void MeioDeComunicacao (string fluxoBrutoDeBits) {
+//	//OBS IMPORTANTE: trabalhar com BITS e nao com BYTES!!!
+//	string fluxoBrutoDeBitsPontoA, fluxoBrutoDeBitsPontoB;
+//	fluxoBrutoDeBitsPontoA = fluxoBrutoDeBits;
+//	unsigned int FluxoBitABit;
+//	while ((unsigned) fluxoBrutoDeBitsPontoB.size()!= (unsigned) fluxoBrutoDeBitsPontoA.size()) {
+//		FluxoBitABit =  fluxoBrutoDeBitsPontoB.size(); //tamanho de B, sera exatamente a posicao do bit em A que tem que ser transferido para B
+//		fluxoBrutoDeBitsPontoB += fluxoBrutoDeBitsPontoA[FluxoBitABit];  //BITS! Sendo transferidos
+//	}//fim do while
+//	//chama proxima camada
+//	CamadaFisicaReceptora(fluxoBrutoDeBitsPontoB);
+//}//fim do metodo MeioDeTransmissao
 
 
 void CamadaFisicaReceptora (string quadro) {
