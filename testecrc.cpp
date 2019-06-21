@@ -20,6 +20,7 @@ int main () {
 
 
 	string geradorcrc = "10011";  //usar polinomio CRC-32(IEEE 802)
+	//string geradorcrc = "100000100110000010001110110110111";
 	string quadro = "1101011111";	//Essa linha vai sumir quando colocar no codigo original pois vem como parametro da funcao
 	string quadroresultado = quadro; //quadro usado para armazenar o resultado de cada iteracao
 	string quadroresto; //quadro usado para armazenar o resto da divisao polinomial
@@ -106,7 +107,7 @@ int main () {
 		}
 	}
 	cout << "Mensagem Final: " << quadro << endl;
-
+	getchar();
 	//return quadro
 	return 0;
 }
