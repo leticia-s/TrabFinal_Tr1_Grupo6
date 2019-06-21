@@ -22,6 +22,7 @@ int main () {
 	string geradorcrc = "10011";  //usar polinomio CRC-32(IEEE 802)
 	//string geradorcrc = "100000100110000010001110110110111";
 	string quadro = "1101011111";	//Essa linha vai sumir quando colocar no codigo original pois vem como parametro da funcao
+	//string quadro = "11010111110010"; //Resultado do crc com o quadro do livro. Se usar esse como o quadro original e fizer a divisao com o mesmo gerador, o resto tem que ser zero (na ausencia de erros de transmissao)
 	string quadroresultado = quadro; //quadro usado para armazenar o resultado de cada iteracao
 	string quadroresto; //quadro usado para armazenar o resto da divisao polinomial
 	int contador, indice, i, j, k;	//i, j, k sao indices de loop, os outros dois sao explicados abaixo
@@ -90,6 +91,14 @@ int main () {
 		quadroresultado = quadroresultado3;
 	}
 	quadroresto = quadroresultado;
+	//Remover os comentarios abaixo para testar a recepcao do quadro
+	/* 
+	if(quadroresto[0] == '\0') {
+		cout << "Resto zero, quadro sem erros" << endl;
+	} 
+	else {
+		cout << "Resto diferente de zero, quadro com erros" << endl;
+	}*/
 	cout << "Resto: " << quadroresto << endl;
 	i=0;
 	j = quadro.size()-1;
