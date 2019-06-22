@@ -42,12 +42,6 @@ void AplicacaoReceptora(string mensagem);
 //variavel global para o tipo de codificacao
 int tipo_de_codific;
 
-// int main () {
-// string q = "10011001";
-// //AplicacaoTransmissora();
-// CamadaEnlaceDadosReceptoraControleDeErro(q);
-// }//fim do metodo main
-
 string lerStringArquivo(string mensagem){
 	char caracter;
 	FILE *ptr;
@@ -65,38 +59,6 @@ string lerStringArquivo(string mensagem){
     fclose(ptr);
     return mensagem;
 };//fim do metodo lerStringArquivo
-
-void AplicacaoTransmissora () {
-	string mensagem;
-	tipo_de_codific = -1; //valor inicial pra condicao while
-	//while para selecionar o tipo de codificacao
-	while(tipo_de_codific != 0 && tipo_de_codific != 1 && tipo_de_codific != 2 ){
-		cout << "Digite o tipo de codificacao:\n    0- Binaria\n    1- Manchester\n    2- Manchester Diferencial\n>>";
-		cin >> tipo_de_codific; 
-		cin.ignore();// se for usar getline tem que limpar \n do buffer
-		if(tipo_de_codific != 0 && tipo_de_codific != 1 && tipo_de_codific != 2 )
-			cout << "tipo de codificacao invalida!" << endl;
-	}
-	//ler de um arquivo
-	mensagem = lerStringArquivo(mensagem); 
-	//cout << "Digite uma mensagem:" << endl;
-    //getline(cin, mensagem); // cin sozinho nao pega espacos
-	//chama a proxima camada
-	CamadaDeAplicacaoTransmissora(mensagem); //em um exemplo mais realistico, aqui seria dado um SEND do SOCKET
-}//fim do metodo AplicacaoTransmissora
-
-
-void CamadaDeAplicacaoTransmissora (string mensagem) {
-  	string binary_output;
-  	//converter a mensagem para binario
-  	for (size_t i = 0; i < mensagem.size(); ++i){
-	  	bitset<8> b(mensagem.c_str()[i]); // cada caracter tem 8 bits 
-	    binary_output+= b.to_string(); //cada 8 bits(cada caracter) coloca na string
-  	}
-	string quadro = binary_output;//trabalhar com bits!!!
-	//chama a proxima camada
-	CamadaFisicaTransmissora(quadro);
-}//fim do metodo CamadaDeAplicacaoTransmissora
 
 
 void CamadaFisicaTransmissora (string quadro) {
@@ -191,45 +153,7 @@ return codificada;
 
 	
 }//fim do CamadaFisicaTransmissoraCodificacaoManchesterDiferencial
-/* Este metodo simula a transmissao da informacao no meio de
-* comunicacao, passando de um pontoA (transmissor) para um
-* ponto B (receptor)
-*/
 
-/////////////////////////////////////////////////////////////////////////////////////
-
-//void MeioDeComunicacao (string fluxoBrutoDeBits) {
-//	//OBS IMPORTANTE: trabalhar com BITS e nao com BYTES!!!
-//	string fluxoBrutoDeBitsPontoA, fluxoBrutoDeBitsPontoB;
-//	fluxoBrutoDeBitsPontoA = fluxoBrutoDeBits;
-//	unsigned int FluxoBitABit;
-//	while ((unsigned) fluxoBrutoDeBitsPontoB.size()!= (unsigned) fluxoBrutoDeBitsPontoA.size()) {
-//		FluxoBitABit =  fluxoBrutoDeBitsPontoB.size(); //tamanho de B, sera exatamente a posicao do bit em A que tem que ser transferido para B
-//		fluxoBrutoDeBitsPontoB += fluxoBrutoDeBitsPontoA[FluxoBitABit];  //BITS! Sendo transferidos
-//	}//fim do while
-//	//chama proxima camada
-//	CamadaFisicaReceptora(fluxoBrutoDeBitsPontoB);
-//}//fim do metodo MeioDeTransmissao
-
-
-void CamadaFisicaReceptora (string quadro) {
-	int tipoDeDecodificacao = tipo_de_codific; //alterar de acordo o teste
-	string fluxoBrutoDeBits; //ATENCAO: trabalhar com BITS!!!
-	switch (tipoDeDecodificacao) {
-		case 0 : //codificao binaria
-		fluxoBrutoDeBits = CamadaFisicaReceptoraDecodificacaoBinaria(quadro);
-		break;
-		case 1 : //codificacao manchester
-		fluxoBrutoDeBits = CamadaFisicaReceptoraDecodificacaoManchester(quadro);
-		break;
-		case 2 : //codificacao manchester diferencial
-		fluxoBrutoDeBits = CamadaFisicaReceptoraDecodificacaoManchesterDiferencial(quadro);
-		break;
-	}//fim do switch/case
-//chama proxima camada
-	
-	CamadaDeAplicacaoReceptora(fluxoBrutoDeBits);
-}//fim do metodo CamadaFisicaTransmissora
 
 
 string CamadaFisicaReceptoraDecodificacaoBinaria (string quadro) {
