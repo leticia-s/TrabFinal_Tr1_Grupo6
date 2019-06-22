@@ -296,10 +296,11 @@ return decodificada;
 
 void CamadaDeAplicacaoReceptora (string quadro) {
 	string mensagem;
+	int tamanho = quadro.size();
 	unsigned int posCaracter = 0; 
 	//tem que pegar a cada 8 bits sera um caracter
 	while(quadro[posCaracter] != '\0'){
-		bitset<8> b(quadro.substr(posCaracter,8));// pega 8 bits de um caracter 
+		bitset<8> b(quadro.substr(posCaracter,8));// pega 8 bits de um caracter
 		mensagem += b.to_ulong(); //transforma os 8 bits para um inteiro ulong e depois pra caracter
 		posCaracter += 8;// a cada posicao multiplo de 8 sera um caracter
 	}

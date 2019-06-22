@@ -8,7 +8,8 @@ Grupo 6:
 	Christian Braga de Almeida Pires, 12/0028379
 *********************************************************** */
  #include "SimuladorCamadaFisica.cpp"  // inclusao das funcoes da camada fisica
- 
+
+#include <time.h>
  //declaracao de funcoes   --- Nao e para fazer o de Enquadramento
 
 void CamadaEnlaceDadosTransmissora (string quadro);
@@ -18,17 +19,21 @@ void CamadaEnlaceDadosTransmissoraControleDeErroBitParidadeImpar (string quadro)
 void CamadaEnlaceDadosTransmissoraControleDeErroCRC (string quadro );
 void CamadaEnlaceDadosTransmissoraControleDeErroCodigoDeHamming (string quadro );
 void MeioDeComunicacao (string fluxoBrutoDeBits );
-void CamadaEnlaceDadosReceptora (string quadro);
-void CamadaEnlaceDadosReceptoraControleDeErro (string quadro );
-void CamadaEnlaceDadosReceptoraControleDeErroBitDeParidadePar (string quadro );
-void CamadaEnlaceDadosReceptoraControleDeErroBitDeParidadeImpar (string quadro );
+void CamadaEnlaceDadosReceptora(string *quadro);
+void CamadaEnlaceDadosReceptoraControleDeErro(string *quadro);
+void CamadaEnlaceDadosReceptoraControleDeErroBitDeParidadePar (string *quadro );
+void CamadaEnlaceDadosReceptoraControleDeErroBitDeParidadeImpar(string *quadro);
 void CamadaEnlaceDadosReceptoraControleDeErroCRC (string quadro ) ;
 void CamadaEnlaceDadosReceptoraControleDeErroCodigoDeHamming (string quadro );
 
+int tipoDeControleDeErro = 99999; //alterar de acordo com o teste
+
 int main () {
+    srand(time(NULL));
     string q = "10011001";
-AplicacaoTransmissora();
-    //CamadaEnlaceDadosTransmissoraControleDeErro(q);
+//AplicacaoTransmissora();
+
+    CamadaEnlaceDadosTransmissora(q);
     return 0;
 }//fim do metodo main
 
@@ -51,9 +56,13 @@ void CamadaEnlaceDadosTransmissora (string quadro ) {
 
 
 void CamadaEnlaceDadosTransmissoraControleDeErro (string quadro ) {
-	int tipoDeControleDeErro = 0; //alterar de acordo com o teste
-	cout<< "insira o tipo de controle:";
-	cin >> tipoDeControleDeErro;
+    while(tipoDeControleDeErro != 0 && tipoDeControleDeErro != 1 && tipoDeControleDeErro != 2 ) {
+        cout<< "Insira o tipo de controle:\n    0- Bit de Paridade Par\n    1- Bit de Paridade Impar\n    2- CRC\n    3- Codigo de Hamming\n>>";
+        cin >> tipoDeControleDeErro;
+        cin.ignore();// se for usar getline tem que limpar \n do buffer
+        if (tipoDeControleDeErro != 0 && tipoDeControleDeErro != 1 && tipoDeControleDeErro != 2)
+            cout << "tipo de codificacao invalida!" << endl;
+    }
 	switch (tipoDeControleDeErro) {
 	case 0 : //bit de paridade par
 	CamadaEnlaceDadosTransmissoraControleDeErroBitParidadePar(quadro);
@@ -106,8 +115,17 @@ MeioDeComunicacao(quadro);
 }//fim do metodo CamadaEnlaceDadosTransmissoraControledeErroBitParidadeImpar
 
 void CamadaEnlaceDadosTransmissoraControleDeErroCRC (string quadro ) {
- //implementacao do algoritmo
- //usar polinomio CRC-32(IEEE 802)
+    string gerador = "00000100110000010001110110110111";        //0x 04 C1 1D B7
+    string geradorEfetivo;
+    int geradorPos = gerador.size() - quadro.size();
+
+    for(int i = 0; i < quadro.size() ; i++){
+        geradorEfetivo += gerador[geradorPos];
+        geradorPos++;
+    }
+    cout << "Gerador Efetivo:" << geradorEfetivo << endl;
+
+
 }//fim do metodo CamadaEnlaceDadosTransmissoraControledeErroCRC
 
 void CamadaEnlaceDadosTransmissoraControleDeErroCodigoDeHamming (string quadro ) {
@@ -132,36 +150,38 @@ void MeioDeComunicacao (string fluxoBrutoDeBits ) {
 		if (erro > porcentagemDeErros) //fazer a probabilidade do erro <-------
 		 	fluxoBrutoDeBitsPontoB += fluxoBrutoDeBitsPontoA[BitABit]; //BITS!!!   
 		else //ERRO! INVERTER (usa condicao ternaria)
-		 	(fluxoBrutoDeBitsPontoA[BitABit]==0) ?
-		 	fluxoBrutoDeBitsPontoB[BitABit]=fluxoBrutoDeBitsPontoA[BitABit]++ :
-		 	fluxoBrutoDeBitsPontoB[BitABit]=fluxoBrutoDeBitsPontoA[BitABit]--;
+		 	(fluxoBrutoDeBitsPontoA[BitABit]== '0') ?
+		 	fluxoBrutoDeBitsPontoB += '1'  :
+		 	fluxoBrutoDeBitsPontoB += '0';
+
 	}//fim do while
 	cout << "Fluxo de bits ponto B:" <<fluxoBrutoDeBitsPontoB << endl;
-
+    CamadaEnlaceDadosReceptora(&fluxoBrutoDeBitsPontoB);
 }//fim do metodo MeioDeTransmissao
 
 /* **********************************************************************
 *******************Controle de Erro - Recep��o***************************
 ************************************************************************/
 
-void CamadaEnlaceDadosReceptora (string quadro) {
-	 CamadaEnlaceDadosTransmissoraControleDeErro(quadro);
+void CamadaEnlaceDadosReceptora(string *quadro) {
+	 CamadaEnlaceDadosReceptoraControleDeErro(quadro);
 	 //chama proxima camada
-	 CamadaDeAplicacaoReceptora(quadro);
+	 CamadaDeAplicacaoReceptora(*quadro);
 }//fim do metodo CamadaEnlaceDadosReceptora
 
 /* **********************************************************************
 *******************Controle de Erro - Recep��o***************************
 ************************************************************************/
 
-void CamadaEnlaceDadosReceptoraControleDeErro (string quadro ) {
-	 int tipoDeControleDeErro = 0; //alterar de acordo com o teste
+void CamadaEnlaceDadosReceptoraControleDeErro(string *quadro) {
+	 string quadro_aux = *quadro;
 	 switch (tipoDeControleDeErro) {
 	 case 0 : //bit de paridade par
-	 //codigo
+	 CamadaEnlaceDadosReceptoraControleDeErroBitDeParidadePar(quadro);
+	 quadro_aux = *quadro;
 	 break;
 	 case 1 : //bit de paridade impar
-	 //codigo
+	 CamadaEnlaceDadosReceptoraControleDeErroBitDeParidadeImpar(quadro);
 	 break;
 	 case 2 : //CRC
 	 //codigo
@@ -177,11 +197,44 @@ void CamadaEnlaceDadosReceptoraControleDeErro (string quadro ) {
 ************************************************************************/
 
 
-void CamadaEnlaceDadosReceptoraControleDeErroBitDeParidadePar (string quadro ) {
- //implementacao do algoritmo para VERIFICAR SE HOUVE ERRO
+void CamadaEnlaceDadosReceptoraControleDeErroBitDeParidadePar (string *quadro ) {
+    int count = 0, Par;
+    string quadro_aux = (*quadro);
+
+    for(int bitPos = 0; bitPos < quadro_aux.size(); bitPos++){
+        if(quadro_aux[bitPos] == '1'){
+            count++;
+        }
+    }
+
+    ((count % 2) == 0) ? Par = 1 : Par = 0;
+    if (Par != 1) {
+        cout << "Foi detectado um erro!!!" << endl;
+        exit(1);
+    }
+
+    *quadro = quadro_aux.substr(0,8);
+    quadro_aux = *quadro;
+
 }//fim do metodo CamadaEnlaceDadosReceptoraControleDeErroBitDeParidadePar
-void CamadaEnlaceDadosReceptoraControleDeErroBitDeParidadeImpar (string quadro ) {
- //implementacao do algoritmo para VERIFICAR SE HOUVE ERRO
+void CamadaEnlaceDadosReceptoraControleDeErroBitDeParidadeImpar(string *quadro) {
+    int count = 0, Impar;
+    string quadro_aux = (*quadro);
+
+    for(int bitPos = 0; bitPos < quadro_aux.size(); bitPos++){
+        if(quadro_aux[bitPos] == '1'){
+            count++;
+        }
+    }
+
+    ((count % 2) == 0) ? Impar = 0 : Impar = 1;
+    if (Impar != 1) {
+        cout << "Foi detectado um erro!!!" << endl;
+        exit(1);
+    }
+
+    *quadro = quadro_aux.substr(0,8);
+    quadro_aux = *quadro;
 }//fim do metodo CamadaEnlaceDadosReceptoraControleDeErroBitDeParidadeImpar
 void CamadaEnlaceDadosReceptoraControleDeErroCRC (string quadro ) {
  //implementacao do algoritmo para VERIFICAR SE HOUVE ERRO
