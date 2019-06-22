@@ -220,7 +220,6 @@ return decodificada;
 
 void CamadaDeAplicacaoReceptora (string quadro) {
 	string mensagem;
-	int tamanho = quadro.size();
 	unsigned int posCaracter = 0; 
 	//tem que pegar a cada 8 bits sera um caracter
 	while(quadro[posCaracter] != '\0'){

@@ -65,7 +65,8 @@ void AplicacaoTransmissora () {
 void CamadaDeAplicacaoTransmissora (string mensagem) {
   	string binary_output;
   	//converter a mensagem para binario
-  	for (size_t i = 0; i < mensagem.size(); ++i){
+  	//-1 para não pegar o /0
+  	for (size_t i = 0; i < mensagem.size()-1; ++i){
 	  	bitset<8> b(mensagem.c_str()[i]); // cada caracter tem 8 bits 
 	    binary_output+= b.to_string(); //cada 8 bits(cada caracter) coloca na string
   	}
@@ -263,8 +264,8 @@ string CamadaEnlaceDadosReceptoraControleDeErroBitDeParidadePar (string quadro )
         cout << "Foi detectado um erro!!!" << endl;
         exit(1);
     }
-
-    quadro = quadro.substr(0,8);
+    //tira o ultimo bit de paridade
+	quadro = quadro.substr(0,quadro.size()-1);
     return quadro;
 
 }//fim do metodo CamadaEnlaceDadosReceptoraControleDeErroBitDeParidadePar
@@ -282,8 +283,8 @@ string CamadaEnlaceDadosReceptoraControleDeErroBitDeParidadeImpar(string quadro)
         cout << "Foi detectado um erro!!!" << endl;
         exit(1);
     }
-
-    quadro = quadro.substr(0,8);
+    //tira o ultimo bit de paridade
+    quadro = quadro.substr(0,quadro.size()-1);
     return quadro;
 }//fim do metodo CamadaEnlaceDadosReceptoraControleDeErroBitDeParidadeImpar
 string CamadaEnlaceDadosReceptoraControleDeErroCRC (string quadro ) {
