@@ -182,10 +182,10 @@ string CamadaEnlaceDadosTransmissoraControleDeErroBitParidadePar(string quadro)
 	{ //Caminha pelo quadro
 		if (quadro[i] == '1')
 		{
-			count++; //Conta o numero de 1s
+			count++; //Conta o numero de 1's
 		}
 	}
-	((count % 2) != 0) ? quadro += '1' : quadro += '0'; //Se o numero de 1s for par, o bit de paridade e 1, se nao for par o bit de paridade e 0
+	((count % 2) != 0) ? quadro += '1' : quadro += '0'; //Se o numero de 1s for par, o bit de paridade e 0, se nao for par o bit de paridade e 1
 
 	cout << "Quadro por bit de paridade par:\n"
 		 << quadro << endl;
@@ -198,13 +198,13 @@ string CamadaEnlaceDadosTransmissoraControleDeErroBitParidadeImpar(string quadro
 	int count = 0;
 
 	for (int i = 0; i < quadro.size(); i++)
-	{
+	{//Caminha pelo quadro
 		if (quadro[i] == '1')
 		{
-			count++;
+			count++; //conta numero de 1's 
 		}
 	}
-	((count % 2) != 0) ? quadro += '0' : quadro += '1';
+	((count % 2) != 0) ? quadro += '0' : quadro += '1'; //Se o numero de 1s for impar, o bit de paridade e 0, se nao for par o bit de paridade e 1
 
 	cout << "Quadro por bit de paridade impar:\n"
 		 << quadro << endl;
@@ -244,7 +244,7 @@ string CamadaEnlaceDadosTransmissoraControleDeErroCodigoDeHamming(string quadro)
 	for (i = 1; i <= tamanhoQuadroFinal; i++)
 	{
 		//se for a posicao de bit de paridade coloca 0 no quadroFinal, caso contrario coloca o bit do quadro
-		if (i == pow(2, indice))
+		if (i == pow(2, indice)) //2 elevado ao indice
 		{
 			//zera a posicao com os bits de paridade, pois ainda vao ser calculados
 			quadroFinal += '0';
@@ -318,12 +318,12 @@ string CamadaEnlaceDadosReceptoraControleDeErroBitDeParidadePar(string quadro)
 	{
 		if (quadro[bitPos] == '1')
 		{
-			count++;
+			count++; //conta numero de 1's
 		}
 	}
-
+	//verifica a paridade
 	((count % 2) == 0) ? Par = 1 : Par = 0;
-	if (Par != 1)
+	if (Par != 1) 
 	{
 		cout << "Foi detectado um erro!!!" << endl;
 		exit(1);
@@ -341,10 +341,10 @@ string CamadaEnlaceDadosReceptoraControleDeErroBitDeParidadeImpar(string quadro)
 	{
 		if (quadro[bitPos] == '1')
 		{
-			count++;
+			count++; //conta numero de 1's
 		}
 	}
-
+    //verifica a paridade
 	((count % 2) == 0) ? Impar = 0 : Impar = 1;
 	if (Impar != 1)
 	{
@@ -365,34 +365,32 @@ string CamadaEnlaceDadosReceptoraControleDeErroCRC(string quadro)
 } //fim do metodo CamadaEnlaceDadosReceptoraControleDeErroCRC
 string CamadaEnlaceDadosReceptoraControleDeErroCodigoDeHamming(string quadro)
 {
-	//implementacao do algoritmo para VERIFICAR SE HOUVE ERRO
-	//
 	int BitsParidade = 0, i = 0, numberOf1 = 0;
 	bool Erro = false;
 	string QuadroFinal, QuadroP;
-
+	cout << "Bits de paridade da mensagem recebida:"<< "\n";
+	
 	for (i = 0; i < quadro.size(); i++)
 	{
-		if (i == pow(2, BitsParidade) - 1)
-		{
-			cout << "P" << i + 1 << ": " << quadro[i] << "\n"
-				 << endl;
-			QuadroP += quadro[i];
-			BitsParidade++;
+		//se for um bit de paridade de paridade - //2 elevado ao bitParidade
+		if (i == pow(2, BitsParidade) - 1){ 
+			cout << "P" << i + 1 << ": " << quadro[i] << "\n" << endl;
+			QuadroP += quadro[i]; //quadro com bits de paridade
+			BitsParidade++;  //quantidade de bits de paridade
 		}
-		else
-		{
-			QuadroFinal += quadro[i];
+		else{
+			QuadroFinal += quadro[i]; // adiciona somente o quadro sem os bits de paridade
 		}
 	}
-
+    //verificar cada paridade para ver se tem erro
 	for (i = 0; i < BitsParidade - 1; i++)
 	{
-		numberOf1 = numde1s_pn(pow(2, i), quadro); //fun�ao retorna numero de 1s de uma posicao Pn
-		if ((numberOf1 + QuadroP[i]) % 2 == 1)
+		numberOf1 = numde1s_pn(pow(2, i), quadro); //funcao retorna numero de 1s de uma posicao Pn
+		// se o numero de 1s de Pn + bit de paridade Pn for igual a 1, ou seja for impar, entao tem erro
+		if ((numberOf1 + QuadroP[i]) % 2 == 1) // se a (paridade Pn + bit de paridade Pn) for 
 		{
 			cout << "Mensagem com erro!!!" << endl;
-			exit(1);
+			exit(1); //encerra programa
 		}
 	}
 	cout << "Mensagem: \n"
