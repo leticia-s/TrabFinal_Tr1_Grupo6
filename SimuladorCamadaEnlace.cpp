@@ -56,7 +56,9 @@ void AplicacaoTransmissora()
 		cin >> tipoDeControleDeErro;
 		cin.ignore(); // limpar \n do buffer
 		if (tipoDeControleDeErro != 0 && tipoDeControleDeErro != 1 && tipoDeControleDeErro != 2 && tipoDeControleDeErro != 3)
-			cout << "tipo de codificacao invalida!" << endl;
+			cout << "tipo de codificacao invalida!"
+				 << "\n"
+				 << endl;
 	}
 
 	//ler de um arquivo
@@ -122,7 +124,8 @@ void MeioDeComunicacao(string fluxoBrutoDeBits)
 
 	} //fim do while
 	cout << "Fluxo de bits para camada fisica Receptora:\n"
-		 << fluxoBrutoDeBitsPontoB << endl;
+		 << fluxoBrutoDeBitsPontoB << "\n"
+		 << endl;
 	CamadaFisicaReceptora(fluxoBrutoDeBitsPontoB);
 } //fim do metodo MeioDeTransmissao
 
@@ -187,8 +190,9 @@ string CamadaEnlaceDadosTransmissoraControleDeErroBitParidadePar(string quadro)
 	}
 	((count % 2) != 0) ? quadro += '1' : quadro += '0'; //Se o numero de 1s for par, o bit de paridade e 1, se nao for par o bit de paridade e 0
 
-	cout << "Quadro por bit de paridade par:\n"
-		 << quadro << endl;
+	cout << "Quadro por bit de paridade par:"
+		 << quadro << "\n"
+		 << endl;
 
 	return quadro;
 } //fim do metodo CamadaEnlaceDadosTransmissoraControledeErroBitParidadePar
@@ -206,8 +210,9 @@ string CamadaEnlaceDadosTransmissoraControleDeErroBitParidadeImpar(string quadro
 	}
 	((count % 2) != 0) ? quadro += '0' : quadro += '1';
 
-	cout << "Quadro por bit de paridade impar:\n"
-		 << quadro << endl;
+	cout << "Quadro por bit de paridade impar:"
+		 << quadro << "\n"
+		 << endl;
 
 	return quadro;
 } //fim do metodo CamadaEnlaceDadosTransmissoraControledeErroBitParidadeImpar
@@ -223,7 +228,7 @@ string CamadaEnlaceDadosTransmissoraControleDeErroCRC(string quadro)
 		geradorEfetivo += gerador[geradorPos];
 		geradorPos++;
 	}
-	cout << "Gerador Efetivo:" << geradorEfetivo << endl;
+	cout << "Gerador Efetivo:" << geradorEfetivo << "\n " << endl;
 
 	//return quadro;
 
@@ -266,8 +271,9 @@ string CamadaEnlaceDadosTransmissoraControleDeErroCodigoDeHamming(string quadro)
 			quadroFinal[pow(2, indice) - 1] = '1';
 		indice++;
 	}
-	cout << "Codigo De Hamming Transmissora:\n"
-		 << quadroFinal << endl;
+	cout << "Codigo De Hamming Transmissora:"
+		 << quadroFinal << " \n"
+		 << endl;
 	return quadro;
 } //fim do metodo CamadaEnlaceDadosTransmissoraControleDeErroCodigoDehamming
 
@@ -324,7 +330,8 @@ string CamadaEnlaceDadosReceptoraControleDeErroBitDeParidadePar(string quadro)
 	((count % 2) == 0) ? Par = 1 : Par = 0;
 	if (Par != 1)
 	{
-		cout << "Foi detectado um erro!!!" << endl;
+		cout << "Foi detectado um erro!!! \n"
+			 << endl;
 		exit(1);
 	}
 	//tira o ultimo bit de paridade
@@ -347,7 +354,8 @@ string CamadaEnlaceDadosReceptoraControleDeErroBitDeParidadeImpar(string quadro)
 	((count % 2) == 0) ? Impar = 0 : Impar = 1;
 	if (Impar != 1)
 	{
-		cout << "Foi detectado um erro!!!" << endl;
+		cout << "Foi detectado um erro!!! \n"
+			 << endl;
 		exit(1);
 	}
 	//tira o ultimo bit de paridade
@@ -368,13 +376,15 @@ string CamadaEnlaceDadosReceptoraControleDeErroCodigoDeHamming(string quadro)
 	//
 	int BitsParidade = 0, i = 0, numberOf1 = 0;
 	bool Erro = false;
-	string QuadroFinal;
+	string QuadroFinal, QuadroP;
 
 	for (i = 0; i < quadro.size(); i++)
 	{
-		if (i == pow(2, BitsParidade) - 1)
+		if (i == pow(2, BitsParidade))
 		{
-			cout << "P" << i << ": " << quadro[i] << endl;
+			cout << "P" << i << ": " << quadro[i] << "\n"
+				 << endl;
+			QuadroP += quadro[i];
 			BitsParidade++;
 		}
 		else
@@ -383,20 +393,16 @@ string CamadaEnlaceDadosReceptoraControleDeErroCodigoDeHamming(string quadro)
 		}
 	}
 
-	for (i = 0; i < BitsParidade - 1; i++)
+	for (i = 0; i <= BitsParidade; i++)
 	{
 		numberOf1 = numde1s_pn(pow(2, BitsParidade), quadro); //fun�ao retorna numero de 1s de uma posicao Pn
+		numberOf1 += QuadroP[i];
 		if ((numberOf1 % 2) != 0)
 		{
-			cout << "Mensagem com Erro: P" << pow(2, i) << "\n"
+			cout << "Mensagem com erro!!! \n"
 				 << endl;
-			Erro = true;
+			exit(1);
 		}
-	}
-	if (Erro == true)
-	{
-		cout << "Mensagem com erro!!!" << endl;
-		exit(1);
 	}
 	cout << "Mensagem: \n"
 		 << QuadroFinal << endl;
