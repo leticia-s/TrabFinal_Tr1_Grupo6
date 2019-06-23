@@ -56,9 +56,7 @@ void AplicacaoTransmissora()
 		cin >> tipoDeControleDeErro;
 		cin.ignore(); // limpar \n do buffer
 		if (tipoDeControleDeErro != 0 && tipoDeControleDeErro != 1 && tipoDeControleDeErro != 2 && tipoDeControleDeErro != 3)
-			cout << "tipo de codificacao invalida!"
-				 << "\n"
-				 << endl;
+			cout << "tipo de codificacao invalida!" << endl;
 	}
 
 	//ler de um arquivo
@@ -111,7 +109,7 @@ void MeioDeComunicacao(string fluxoBrutoDeBits)
 	int erro, porcentagemDeErros, BitABit;
 	string fluxoBrutoDeBitsPontoA, fluxoBrutoDeBitsPontoB;
 
-	porcentagemDeErros = 0;					   //10%, 20%, 30%, 40%, ..., 100%  <-------
+	porcentagemDeErros = 10;				   //10%, 20%, 30%, 40%, ..., 100%  <-------
 	fluxoBrutoDeBitsPontoA = fluxoBrutoDeBits; //<-------
 	while (fluxoBrutoDeBitsPontoB.length() != fluxoBrutoDeBitsPontoA.length())
 	{
@@ -124,8 +122,7 @@ void MeioDeComunicacao(string fluxoBrutoDeBits)
 
 	} //fim do while
 	cout << "Fluxo de bits para camada fisica Receptora:\n"
-		 << fluxoBrutoDeBitsPontoB << "\n"
-		 << endl;
+		 << fluxoBrutoDeBitsPontoB << endl;
 	CamadaFisicaReceptora(fluxoBrutoDeBitsPontoB);
 } //fim do metodo MeioDeTransmissao
 
@@ -190,9 +187,8 @@ string CamadaEnlaceDadosTransmissoraControleDeErroBitParidadePar(string quadro)
 	}
 	((count % 2) != 0) ? quadro += '1' : quadro += '0'; //Se o numero de 1s for par, o bit de paridade e 1, se nao for par o bit de paridade e 0
 
-	cout << "Quadro por bit de paridade par:"
-		 << quadro << "\n"
-		 << endl;
+	cout << "Quadro por bit de paridade par:\n"
+		 << quadro << endl;
 
 	return quadro;
 } //fim do metodo CamadaEnlaceDadosTransmissoraControledeErroBitParidadePar
@@ -210,9 +206,8 @@ string CamadaEnlaceDadosTransmissoraControleDeErroBitParidadeImpar(string quadro
 	}
 	((count % 2) != 0) ? quadro += '0' : quadro += '1';
 
-	cout << "Quadro por bit de paridade impar:"
-		 << quadro << "\n"
-		 << endl;
+	cout << "Quadro por bit de paridade impar:\n"
+		 << quadro << endl;
 
 	return quadro;
 } //fim do metodo CamadaEnlaceDadosTransmissoraControledeErroBitParidadeImpar
@@ -228,7 +223,7 @@ string CamadaEnlaceDadosTransmissoraControleDeErroCRC(string quadro)
 		geradorEfetivo += gerador[geradorPos];
 		geradorPos++;
 	}
-	cout << "Gerador Efetivo:" << geradorEfetivo << "\n " << endl;
+	cout << "Gerador Efetivo:" << geradorEfetivo << endl;
 
 	//return quadro;
 
@@ -237,7 +232,6 @@ string CamadaEnlaceDadosTransmissoraControleDeErroCRC(string quadro)
 string CamadaEnlaceDadosTransmissoraControleDeErroCodigoDeHamming(string quadro)
 {
 	//implementacao do algoritmo
-	cout <<"a:" << quadro;
 	int numberOf1, i, tamanhoQuadroFinal, numeroBitsParidade;
 	int indice = 0;
 	int posicaoQuadro = 0;
@@ -331,8 +325,7 @@ string CamadaEnlaceDadosReceptoraControleDeErroBitDeParidadePar(string quadro)
 	((count % 2) == 0) ? Par = 1 : Par = 0;
 	if (Par != 1)
 	{
-		cout << "Foi detectado um erro!!! \n"
-			 << endl;
+		cout << "Foi detectado um erro!!!" << endl;
 		exit(1);
 	}
 	//tira o ultimo bit de paridade
@@ -355,8 +348,7 @@ string CamadaEnlaceDadosReceptoraControleDeErroBitDeParidadeImpar(string quadro)
 	((count % 2) == 0) ? Impar = 0 : Impar = 1;
 	if (Impar != 1)
 	{
-		cout << "Foi detectado um erro!!! \n"
-			 << endl;
+		cout << "Foi detectado um erro!!!" << endl;
 		exit(1);
 	}
 	//tira o ultimo bit de paridade
@@ -381,9 +373,9 @@ string CamadaEnlaceDadosReceptoraControleDeErroCodigoDeHamming(string quadro)
 
 	for (i = 0; i < quadro.size(); i++)
 	{
-		if (i == pow(2, BitsParidade)-1)
+		if (i == pow(2, BitsParidade) - 1)
 		{
-			cout << "P" << i+1<< ": " << quadro[i] << "\n"
+			cout << "P" << i + 1 << ": " << quadro[i] << "\n"
 				 << endl;
 			QuadroP += quadro[i];
 			BitsParidade++;
@@ -394,21 +386,18 @@ string CamadaEnlaceDadosReceptoraControleDeErroCodigoDeHamming(string quadro)
 		}
 	}
 
-	for (i = 0; i <= BitsParidade; i++)
+	for (i = 0; i < BitsParidade - 1; i++)
 	{
 		numberOf1 = numde1s_pn(pow(2, BitsParidade), quadro); //fun�ao retorna numero de 1s de uma posicao Pn
-		numberOf1 += QuadroP[i]; //somando o p
-		if ((numberOf1 % 2) != 0)
+		if ((numberOf1 + QuadroP[i]) % 2 == QuadroP[i])
 		{
-			cout << "Mensagem com erro!!! \n"
-				 << endl;
-		//	exit(1);
+			cout << "Mensagem com erro!!!" << endl;
+			//exit(1);
 		}
+		cout << "Mensagem: \n"
+			 << QuadroFinal << endl;
+		return QuadroFinal;
 	}
-	cout << "Mensagem: \n"
-		 << QuadroFinal << endl;
-	return QuadroFinal;
-
 	//return quadro;
 } //fim do metodo CamadaEnlaceDadosReceptoraControleDeErroCodigoDeHamming
 
