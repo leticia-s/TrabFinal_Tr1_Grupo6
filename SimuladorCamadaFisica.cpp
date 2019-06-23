@@ -46,7 +46,7 @@ string lerStringArquivo(string mensagem){
 	char caracter;
 	FILE *ptr;
 	//ler Arquivo txt << tudo no arquivo txt sera somente uma unica string
-	ptr = fopen("text_string.txt","r"); //colocar nome do arquivo .txt para ser lido
+	ptr = fopen("text_string.txt","rt"); //colocar nome do arquivo .txt para ser lido
 	if (ptr == NULL){
     	printf("Problemas na abertura do arquivo\n");
     	exit(0);

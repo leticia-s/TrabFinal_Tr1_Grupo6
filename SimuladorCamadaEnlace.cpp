@@ -114,7 +114,7 @@ void MeioDeComunicacao (string fluxoBrutoDeBits ) {
 		 	fluxoBrutoDeBitsPontoB += '0';
 
 	}//fim do while
-	cout << "Fluxo de bits para camada fisica Receptora:" <<fluxoBrutoDeBitsPontoB << endl;
+	cout << "Fluxo de bits para camada fisica Receptora:\n" <<fluxoBrutoDeBitsPontoB << endl;
     CamadaFisicaReceptora(fluxoBrutoDeBitsPontoB);
 }//fim do metodo MeioDeTransmissao
 
@@ -211,8 +211,36 @@ string CamadaEnlaceDadosTransmissoraControleDeErroCRC (string quadro ) {
 
 string CamadaEnlaceDadosTransmissoraControleDeErroCodigoDeHamming (string quadro ) {
  //implementacao do algoritmo
- 	
-	//return quadro;
+ 	int numberOf1, i, tamanhoQuadroFinal, numeroBitsParidade;
+	int posicaoP = 0;
+	int posicaoQuadro = 0;
+	string quadroFinal;
+	//numero de bis de paridade
+	numeroBitsParidade = ceil(log2(quadro.size()+1));
+	//numero total de bits = bits do quadro + bits de paridade
+	tamanhoQuadroFinal = quadro.size() + numeroBitsParidade;
+	//
+	for(i=1; i<=tamanhoQuadroFinal; i++){
+	    //se for a posicao de bit de paridade coloca 0 no quadroFinal, caso contrario coloca o bit do quadro
+	    if(i==pow(2,posicaoP)){
+	    	//zera a posicao com os bits de paridade, pois ainda vao ser calculados
+	        quadroFinal += '0';
+	        posicaoP++;
+	    } else { 
+	        quadroFinal+=quadro[posicaoQuadro];
+	        posicaoQuadro++;
+	    }
+	}
+	
+	posicaoP = 0;
+	//pega cada posicao Pn e coloca 0 se numero de 1s for par e 1 se for impar
+	for(int n=0;n < numeroBitsParidade - 1;n++){
+		numberOf1 =  numde1s_pn(pow(2,posicaoP), quadroFinal); //funçao retorna numero de 1s de uma posicao Pn
+		((numberOf1 % 2) != 0) ? quadroFinal[pow(2,posicaoP) - 1] = '1' : quadroFinal[pow(2,posicaoP) - 1] = '0';
+		posicaoP++;
+	}
+	cout << "Codigo De Hamming Transmissora:\n" << quadroFinal << endl;
+	return quadro;
 }//fim do metodo CamadaEnlaceDadosTransmissoraControleDeErroCodigoDehamming
 
 
@@ -322,4 +350,4 @@ int numde1s_pn(int posicao_pn, string quadro){
 	}
 	return cont;		
 };
-
+  
