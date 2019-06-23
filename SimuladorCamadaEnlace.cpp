@@ -78,7 +78,7 @@ void CamadaDeAplicacaoTransmissora (string mensagem) {
 }//fim do metodo CamadaDeAplicacaoTransmissora
 
 /* **********************************************************************
-*******************Controle de Erro - Transmiss�o************************
+*******************Controle de Erro - Transmissao************************
 ************************************************************************/
 
 
@@ -106,7 +106,7 @@ void MeioDeComunicacao (string fluxoBrutoDeBits ) {
 	while (fluxoBrutoDeBitsPontoB.length() !=fluxoBrutoDeBitsPontoA.length()) {
 		BitABit = fluxoBrutoDeBitsPontoB.length();
 		erro = 1 + rand() % (100); //1 ate 100
-		if (erro > porcentagemDeErros) //sempre que for maior que % n�o tem erro
+		if (erro > porcentagemDeErros) //sempre que for maior que % nao tem erro
 		 	fluxoBrutoDeBitsPontoB += fluxoBrutoDeBitsPontoA[BitABit]; //BITS!!!   
 		else //ERRO! INVERTER (usa condicao ternaria)
 		 	(fluxoBrutoDeBitsPontoA[BitABit]== '0') ?
@@ -169,10 +169,10 @@ string CamadaEnlaceDadosTransmissoraControleDeErroBitParidadePar (string quadro 
 	 
 	for(int i = 0; i < quadro.size(); i++){    //Caminha pelo quadro
 		 if (quadro[i] == '1'){
-			 count++;                           //Conta o número de 1s
+			 count++;                           //Conta o numero de 1s
 		 }
 	}
-	((count % 2) != 0) ? quadro += '1' : quadro += '0';    //Se o número de 1s for par, o bit de paridade é 1, se não for par o bit de paridade é 0
+	((count % 2) != 0) ? quadro += '1' : quadro += '0';    //Se o numero de 1s for par, o bit de paridade e 1, se nao for par o bit de paridade e 0
 	
 	cout << "Quadro por bit de paridade par:\n" << quadro << endl;
 	
@@ -255,7 +255,7 @@ void CamadaEnlaceDadosReceptora(string quadro) {
 }//fim do metodo CamadaEnlaceDadosReceptora
 
 /* **********************************************************************
-*******************Controle de Erro - Recep��o***************************
+*******************Controle de Erro - Recepcao***************************
 ************************************************************************/
 
 string CamadaEnlaceDadosReceptoraControleDeErro(string quadro) {
@@ -277,7 +277,7 @@ string CamadaEnlaceDadosReceptoraControleDeErro(string quadro) {
 
 
 /* **********************************************************************
-*******************Controle de Erro - Recep��o***************************
+*******************Controle de Erro - Recepcao***************************
 ************************************************************************/
 
 
