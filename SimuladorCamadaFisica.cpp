@@ -84,7 +84,7 @@ void CamadaFisicaTransmissora (string quadro) {
 
 
 string CamadaFisicaTransmissoraCodificacaoBinaria (string quadro) {
-	 cout << "Mensagem codificada em bits:\n"  << quadro << endl;
+	 cout << "\nCodificacao Fisica (Binaria):\n"  << quadro << endl;
     return quadro;
 }//fim do metodo CamadaFisicaTransmissoraCodificacaoBinaria
 
@@ -107,7 +107,7 @@ string CamadaFisicaTransmissoraCodificacaoManchester (string quadro) {
 		}
 		indice += 1; // vai pro proximo bit do quadro
 	}
-cout << "Mensagem codificada (Manchester):\n" << codificada << endl;
+cout << "\nCodificacao Fisica (Manchester):\n" << codificada << endl;
 
 return codificada;
 
@@ -143,7 +143,7 @@ string CamadaFisicaTransmissoraCodificacaoManchesterDiferencial(string quadro) {
 			}
 		indice += 1;
 	}
-cout << "Mensagem codificada (Manchester Diferencial):\n"  << codificada << endl;
+cout << "\nCodificacao Fisica (Manchester Diferencial):\n"  << codificada << endl;
 
 return codificada;
 
@@ -153,7 +153,7 @@ return codificada;
 
 
 string CamadaFisicaReceptoraDecodificacaoBinaria (string quadro) {
-
+		cout << "Decodificacao Fisica (Binaria):\n" << quadro << endl<< endl;
 	return quadro;
 	
 }//fim do metodo CamadaFisicaReceptoraDecodificacaoBinaria
@@ -174,7 +174,7 @@ string CamadaFisicaReceptoraDecodificacaoManchester (string quadro) {
 		// Como o codigo de Manchester possui a logica de a cada ciclo de clock 1 bit tranmitido sera codificado para 2 sempre 01 ou 10
 		// Caso seja 10 o bit da mensagem original sera 1 e caso seja 01 o bit da mensagem original sera 0
 		// Isso porque eu tomei como base para o codifica que o clock comeca em 0 e vai pra 1 
-		cout << "Mensagem decodificada (Manchester):\n" << decodificada << endl;
+		cout << "Decodificacao Fisica (Manchester):\n" << decodificada << endl<< endl;
 return decodificada;
 
 	
@@ -208,7 +208,7 @@ string CamadaFisicaReceptoraDecodificacaoManchesterDiferencial(string quadro){
 			} 
 			indice+=2; 
 		}
-		cout << "Mensagem decodificada (Manchester Diferencial):\n" << decodificada << endl;
+		cout << "Decodificacao Fisica (Manchester Diferencial):\n" << decodificada << endl<< endl;
 return decodificada;
 	
 }//fim do CamadaFisicaReceptoraDecodificacaoManchesterDiferencial

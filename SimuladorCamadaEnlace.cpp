@@ -66,7 +66,7 @@ void AplicacaoTransmissora()
 	}
 
 	//ler de um arquivo
-	cout << "lendo string do arquivo txt...\n";
+	cout << "lendo mensagem do arquivo 'text_string.txt'...\n";
 	mensagem = lerStringArquivo(mensagem);
 	//cout << "Digite uma mensagem:" << endl;
 	//getline(cin, mensagem); // cin sozinho nao pega espacos
@@ -95,7 +95,8 @@ void CamadaDeAplicacaoTransmissora(string mensagem)
 ************************************************************************/
 
 void CamadaEnlaceDadosTransmissora(string quadro)
-{
+{   
+	cout << "Mensagem para fazer enlace de Dados:\n"<< quadro << endl<< endl;
 	quadro = CamadaEnlaceDadosTransmissoraControleDeErro(quadro);
 	//chama proxima camada
 	CamadaFisicaTransmissora(quadro);
@@ -127,8 +128,8 @@ void MeioDeComunicacao(string fluxoBrutoDeBits)
 			(fluxoBrutoDeBitsPontoA[BitABit] == '0') ? fluxoBrutoDeBitsPontoB += '1' : fluxoBrutoDeBitsPontoB += '0';
 
 	} //fim do while
-	cout << "Fluxo de bits para camada fisica Receptora:\n"
-		 << fluxoBrutoDeBitsPontoB << endl;
+	cout << "\nTransferencia do fluxo de bits para receptora:\n"
+		 << fluxoBrutoDeBitsPontoB << endl<< endl;
 	CamadaFisicaReceptora(fluxoBrutoDeBitsPontoB);
 } //fim do metodo MeioDeTransmissao
 
@@ -194,7 +195,7 @@ string CamadaEnlaceDadosTransmissoraControleDeErroBitParidadePar(string quadro)
 	}
 	((count % 2) != 0) ? quadro += '1' : quadro += '0'; //Se o numero de 1s for par, o bit de paridade e 0, se nao for par o bit de paridade e 1
 
-	cout << "Quadro por bit de paridade par:\n"
+	cout << "Enlace Transmissora (Bit de paridade par):\n"
 		 << quadro << endl;
 
 	return quadro;
@@ -213,7 +214,7 @@ string CamadaEnlaceDadosTransmissoraControleDeErroBitParidadeImpar(string quadro
 	}
 	((count % 2) != 0) ? quadro += '0' : quadro += '1'; //Se o numero de 1s for impar, o bit de paridade e 0, se nao for par o bit de paridade e 1
 
-	cout << "Quadro por bit de paridade impar:\n"
+	cout << "Enlace Transmissora (Bit de paridade impar):\n"
 		 << quadro << endl;
 
 	return quadro;
@@ -232,8 +233,6 @@ string CamadaEnlaceDadosTransmissoraControleDeErroCRC(string quadro)
 	string quadroresultado = quadro; //quadro usado para armazenar o resultado de cada iteracao
 	string quadroresto; //quadro usado para armazenar o resto da divisao polinomial
 	int contador, indice, i, j, k;	//i, j, k sao indices de loop, os outros dois sao explicados abaixo
-
-	cout << endl << "Mensagem: " << quadro << endl;
 
 	//Loop para adicionar zeros ao final do quadro
 	for (i = 0; i < geradorcrc.size()-1; i++) {
@@ -296,7 +295,7 @@ string CamadaEnlaceDadosTransmissoraControleDeErroCRC(string quadro)
 	}
 	quadroresto = quadroresultado;
 	
-	cout << "Resto: " << quadroresto << endl;
+	cout << "Resto (CRC): " << quadroresto << endl;
 	i=0;
 	j = quadro.size()-1;
 
@@ -312,7 +311,7 @@ string CamadaEnlaceDadosTransmissoraControleDeErroCRC(string quadro)
 			j--;
 		}
 	}
-	cout << "Mensagem Final: " << quadro << endl << endl;
+	cout << "Enlace Transmissora (CRC): \n" << quadro << endl << endl;
 
 	return quadro;
 
@@ -322,7 +321,7 @@ string CamadaEnlaceDadosTransmissoraControleDeErroCodigoDeHamming(string quadro)
 {
 	//implementacao do algoritmo
 	int numberOf1, i, tamanhoQuadroFinal, numeroBitsParidade;
-	int indice = 0;
+	int indiceP = 0;
 	int posicaoQuadro = 0;
 	string quadroFinal;
 	//numero de bis de paridade
@@ -333,11 +332,11 @@ string CamadaEnlaceDadosTransmissoraControleDeErroCodigoDeHamming(string quadro)
 	for (i = 1; i <= tamanhoQuadroFinal; i++)
 	{
 		//se for a posicao de bit de paridade coloca 0 no quadroFinal, caso contrario coloca o bit do quadro
-		if (i == pow(2, indice)) //2 elevado ao indice
+		if (i == pow(2, indiceP)) //2 elevado ao indice
 		{
 			//zera a posicao com os bits de paridade, pois ainda vao ser calculados
 			quadroFinal += '0';
-			indice++;
+			indiceP++;
 		}
 		else
 		{
@@ -346,18 +345,22 @@ string CamadaEnlaceDadosTransmissoraControleDeErroCodigoDeHamming(string quadro)
 		}
 	}
 
-	indice = 0;
-	//pega cada posicao Pn(paridade) e coloca 0 se numero de 1s for par e 1 se for impar
-	for (i = 0; i < numeroBitsParidade - 1; i++)
+	indiceP = 0; //atualiza indice dos pn (bits de paridade)
+	cout << "Bits de paridade da mensagem:" << " \n";
+	//pega cada posicao Pn(paridade) muda para 1 se for impar
+	while (indiceP < numeroBitsParidade)
 	{
-		numberOf1 = numde1s_pn(pow(2, indice), quadroFinal); //fun�ao retorna numero de 1s de uma posicao Pn
+		numberOf1 = numde1s_pn(pow(2, indiceP), quadroFinal); //funcao retorna numero de 1s de uma posicao Pn
+		//se for impar muda para 1, pois todos pn estao com zeros
 		if ((numberOf1 % 2) != 0)
-			quadroFinal[pow(2, indice) - 1] = '1';
-		indice++;
-	}
-	cout << "Codigo De Hamming Transmissora:"
-		 << quadroFinal << " \n"
-		 << endl;
+			quadroFinal[pow(2, indiceP) - 1] = '1';
+		//imprimi cada bit de paridade
+		cout << "P" << pow(2, indiceP) << ": " << quadroFinal[pow(2, indiceP) - 1]<< " | ";
+		
+		indiceP++; // atualiza proximo pn -> (bit de paridade)
+	}cout <<endl;
+	cout << "Enlace Transmissora (Codigo De Hamming):" << " \n"
+		 << quadroFinal << endl << endl;
 	return quadroFinal;
 } //fim do metodo CamadaEnlaceDadosTransmissoraControleDeErroCodigoDehamming
 
@@ -420,6 +423,7 @@ string CamadaEnlaceDadosReceptoraControleDeErroBitDeParidadePar(string quadro)
 	}
 	//tira o ultimo bit de paridade
 	quadro = quadro.substr(0, quadro.size() - 1);
+	cout << "Mensagem(quadro) apos enlace Receptora (Bit De Paridade Par): \n" << quadro << endl;
 	return quadro;
 
 } //fim do metodo CamadaEnlaceDadosReceptoraControleDeErroBitDeParidadePar
@@ -443,6 +447,7 @@ string CamadaEnlaceDadosReceptoraControleDeErroBitDeParidadeImpar(string quadro)
 	}
 	//tira o ultimo bit de paridade
 	quadro = quadro.substr(0, quadro.size() - 1);
+	cout << "Mensagem(quadro) apos enlace Receptora (Bit De Paridade Impar) \n" << quadro << endl;
 	return quadro;
 } //fim do metodo CamadaEnlaceDadosReceptoraControleDeErroBitDeParidadeImpar
 string CamadaEnlaceDadosReceptoraControleDeErroCRC(string quadro)
@@ -458,8 +463,6 @@ string CamadaEnlaceDadosReceptoraControleDeErroCRC(string quadro)
 	string quadroresultado = quadro; //quadro usado para armazenar o resultado de cada iteracao
 	string quadroresto; //quadro usado para armazenar o resto da divisao polinomial
 	int contador, indice, i, j, k;	//i, j, k sao indices de loop, os outros dois sao explicados abaixo
-
-	cout << endl << "Mensagem: " << quadro << endl;
 
 	//Loop para adicionar zeros ao final do quadro
 	for (i = 0; i < geradorcrc.size()-1; i++) {
@@ -531,12 +534,16 @@ string CamadaEnlaceDadosReceptoraControleDeErroCRC(string quadro)
 	else {
 		cout << "Resto diferente de zero, quadro com erros" << endl << endl;
 	} 
-	cout << "Resto: " << quadroresto << endl << endl;
+	cout << "Resto (CRC): " << quadroresto << endl << endl;
 
 	int tamanhoquadro = quadro.size();
+
 	quadro[tamanhoquadro - (geradorcrc.size()-1)] = '\0';
-
-
+	
+    quadro = quadro.substr(0, tamanhoquadro - (geradorcrc.size()-1));
+    
+    cout << "Mensagem(quadro) apos enlace Receptora (CRC) \n" << quadro << endl;
+    
 	return quadro;
 } //fim do metodo CamadaEnlaceDadosReceptoraControleDeErroCRC
 string CamadaEnlaceDadosReceptoraControleDeErroCodigoDeHamming(string quadro)
@@ -550,14 +557,15 @@ string CamadaEnlaceDadosReceptoraControleDeErroCodigoDeHamming(string quadro)
 	{
 		//se for um bit de paridade de paridade - //2 elevado ao bitParidade
 		if (i == pow(2, BitsParidade) - 1){ 
-			cout << "P" << i + 1 << ": " << quadro[i] << "\n" << endl;
+			cout << "P" << i + 1 << ": " << quadro[i] << " | ";
 			QuadroP += quadro[i]; //quadro com bits de paridade
 			BitsParidade++;  //quantidade de bits de paridade
 		}
 		else{
 			QuadroFinal += quadro[i]; // adiciona somente o quadro sem os bits de paridade
 		}
-	}
+	
+	}	cout << endl;
     //verificar cada paridade para ver se tem erro
 	for (i = 0; i < BitsParidade - 1; i++)
 	{
@@ -569,10 +577,9 @@ string CamadaEnlaceDadosReceptoraControleDeErroCodigoDeHamming(string quadro)
 			exit(1); //encerra programa
 		}
 	}
-	cout << "Mensagem: \n"
-		 << QuadroFinal << endl;
+	cout << "Mensagem(quadro) apos enlace Receptora (Hamming):\n" << QuadroFinal << endl;
 	return QuadroFinal;
-	//return quadro;
+	
 } //fim do metodo CamadaEnlaceDadosReceptoraControleDeErroCodigoDeHamming
 
 /* **********************************************************************
