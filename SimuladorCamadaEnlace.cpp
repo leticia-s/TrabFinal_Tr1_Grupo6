@@ -168,6 +168,7 @@ string CamadaEnlaceDadosTransmissoraControleDeErro(string quadro)
 		break;
 	case 2: //CRC
 		quadro = CamadaEnlaceDadosTransmissoraControleDeErroCRC(quadro);
+		break;
 	case 3: //codigo de Hamming
 		quadro = CamadaEnlaceDadosTransmissoraControleDeErroCodigoDeHamming(quadro);
 		break;
@@ -388,6 +389,7 @@ string CamadaEnlaceDadosReceptoraControleDeErro(string quadro)
 		break;
 	case 2: //CRC
 		quadro = CamadaEnlaceDadosReceptoraControleDeErroCRC(quadro);
+		break;
 	case 3: //codigo de hamming
 		quadro = CamadaEnlaceDadosReceptoraControleDeErroCodigoDeHamming(quadro);
 		break;
