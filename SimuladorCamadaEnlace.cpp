@@ -8,9 +8,15 @@ Grupo 6:
 	Christian Braga de Almeida Pires, 12/0028379
 *********************************************************** */
 #include "SimuladorCamadaFisica.cpp" // inclusao das funcoes da camada fisica
-#include <math.h>					 //necess�ria para usar as funcao de pontenciacao pow(variavel, expoente)
-#include <time.h>					 //srand
-									 //declaracao de funcoes   --- Nao e para fazer o de Enquadramento
+#include <math.h>					 //necessaria para usar as funcoes matematicas pow, ceil, log
+#include <time.h>					 //para srand
+ //declaracao de funcoes   --- Nao e para fazer o de Enquadramento
+/* indice de funcoes desse arquivo "SimuladorCamadaEnlace.cpp"
+   OBS: todas funcoes do arquivo da camada fisica que foram alteradas para chamar camada de enlace estao neste arquivo*/
+void AplicacaoTransmissora (); // alterado para add enlace
+void CamadaDeAplicacaoTransmissora (string mensagem);  //alterado chamar a camada de enlace transmissora
+//void MeioDeComunicacao (string fluxoBrutoDeBits ); alterado para add porcentagens, ja declado arquivo fisica
+void CamadaFisicaReceptora (string quadro); // alterado para chamar a camada de enlace enlace
 
 void CamadaEnlaceDadosTransmissora(string quadro);
 string CamadaEnlaceDadosTransmissoraControleDeErro(string quadro);

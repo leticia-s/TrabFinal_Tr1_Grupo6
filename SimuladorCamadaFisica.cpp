@@ -22,17 +22,14 @@ Grupo 6:
 using std::string;
 using std::stringstream;
 using namespace std;
-
 //declaracao de funcoes
+//indice de funcoes desse arquivo "SimuladorCamadaFisica.cpp"
 string lerStringArquivo(string mensagem);
-void AplicacaoTransmissora ();
-void CamadaDeAplicacaoTransmissora (string mensagem);
+void MeioDeComunicacao (string fluxoBrutoDeBits ); // esta definido no arquivo de enlace
 void CamadaFisicaTransmissora (string quadro);
 string CamadaFisicaTransmissoraCodificacaoBinaria (string quadro );
 string CamadaFisicaTransmissoraCodificacaoManchester (string quadro );
 string CamadaFisicaTransmissoraCodificacaoManchesterDiferencial(string quadro );
-void MeioDeComunicacao (string fluxoBrutoDeBits );
-void CamadaFisicaReceptora (string quadro);
 string CamadaFisicaReceptoraDecodificacaoBinaria (string quadro );
 string CamadaFisicaReceptoraDecodificacaoManchester (string quadro );
 string CamadaFisicaReceptoraDecodificacaoManchesterDiferencial(string quadro);
