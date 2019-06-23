@@ -312,8 +312,7 @@ string CamadaEnlaceDadosTransmissoraControleDeErroCRC(string quadro)
 			j--;
 		}
 	}
-	cout << "Mensagem Final: " << quadro << endl;
-	getchar();
+	cout << "Mensagem Final: " << quadro << endl << endl;
 
 	return quadro;
 
@@ -525,22 +524,18 @@ string CamadaEnlaceDadosReceptoraControleDeErroCRC(string quadro)
 	else if (quadroresto[0] == '0') {
 		for (i=0; quadroresto[i] != '\0'; i++) {
 			if (quadroresto[i] != '0') {
-				cout << "Resto diferente de zero, quadro com erros" << endl;
+				cout << "Resto diferente de zero, quadro com erros" << endl << endl;
 			}
 		}
 	}
 	else {
-		cout << "Resto diferente de zero, quadro com erros" << endl;
+		cout << "Resto diferente de zero, quadro com erros" << endl << endl;
 	} 
-	cout << "Resto: " << quadroresto << endl;
+	cout << "Resto: " << quadroresto << endl << endl;
 
 	int tamanhoquadro = quadro.size();
 	quadro[tamanhoquadro - (geradorcrc.size()-1)] = '\0';
 
-
-
-	cout << "Quadro: " << quadro << endl;
-	getchar();
 
 	return quadro;
 } //fim do metodo CamadaEnlaceDadosReceptoraControleDeErroCRC
