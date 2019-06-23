@@ -109,7 +109,7 @@ void MeioDeComunicacao(string fluxoBrutoDeBits)
 	int erro, porcentagemDeErros, BitABit;
 	string fluxoBrutoDeBitsPontoA, fluxoBrutoDeBitsPontoB;
 
-	porcentagemDeErros = 10;				   //10%, 20%, 30%, 40%, ..., 100%  <-------
+	porcentagemDeErros = 50;				   //10%, 20%, 30%, 40%, ..., 100%  <-------
 	fluxoBrutoDeBitsPontoA = fluxoBrutoDeBits; //<-------
 	while (fluxoBrutoDeBitsPontoB.length() != fluxoBrutoDeBitsPontoA.length())
 	{
@@ -388,16 +388,16 @@ string CamadaEnlaceDadosReceptoraControleDeErroCodigoDeHamming(string quadro)
 
 	for (i = 0; i < BitsParidade - 1; i++)
 	{
-		numberOf1 = numde1s_pn(pow(2, BitsParidade), quadro); //fun�ao retorna numero de 1s de uma posicao Pn
-		if ((numberOf1 + QuadroP[i]) % 2 == QuadroP[i])
+		numberOf1 = numde1s_pn(pow(2, i), quadro); //fun�ao retorna numero de 1s de uma posicao Pn
+		if ((numberOf1 + QuadroP[i]) % 2 == 1)
 		{
 			cout << "Mensagem com erro!!!" << endl;
-			//exit(1);
+			exit(1);
 		}
-		cout << "Mensagem: \n"
-			 << QuadroFinal << endl;
-		return QuadroFinal;
 	}
+	cout << "Mensagem: \n"
+		 << QuadroFinal << endl;
+	return QuadroFinal;
 	//return quadro;
 } //fim do metodo CamadaEnlaceDadosReceptoraControleDeErroCodigoDeHamming
 
