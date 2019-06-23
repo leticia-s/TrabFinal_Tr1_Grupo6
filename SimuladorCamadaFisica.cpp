@@ -52,8 +52,7 @@ string lerStringArquivo(string mensagem){
     	exit(0);
 	}
 	
-	while (!feof(ptr)){   	
-			fread(&caracter,sizeof(char),1,ptr); // ler caracter por caracter
+	while (fread(&caracter,sizeof(char),1,ptr)){    	// ler caracter por caracter
 			mensagem += caracter; // adiciona caracter na string
 	}
     fclose(ptr);

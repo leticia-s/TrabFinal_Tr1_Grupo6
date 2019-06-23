@@ -65,11 +65,12 @@ void AplicacaoTransmissora () {
 
 void CamadaDeAplicacaoTransmissora (string mensagem) {
   	string binary_output;
+  	int i=0;
   	//converter a mensagem para binario
-  	//-1 para não pegar o /0
-  	for (size_t i = 0; i < mensagem.size()-1; ++i){
+  	while(mensagem[i] != '\0'){
 	  	bitset<8> b(mensagem.c_str()[i]); // cada caracter tem 8 bits 
 	    binary_output+= b.to_string(); //cada 8 bits(cada caracter) coloca na string
+	    i++; //atualiza posicao
   	}
 	string quadro = binary_output;//trabalhar com bits!!!
 	//chama a proxima camada 
