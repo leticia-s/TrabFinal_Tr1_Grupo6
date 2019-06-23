@@ -237,6 +237,7 @@ string CamadaEnlaceDadosTransmissoraControleDeErroCRC(string quadro)
 string CamadaEnlaceDadosTransmissoraControleDeErroCodigoDeHamming(string quadro)
 {
 	//implementacao do algoritmo
+	cout <<"a:" << quadro;
 	int numberOf1, i, tamanhoQuadroFinal, numeroBitsParidade;
 	int indice = 0;
 	int posicaoQuadro = 0;
@@ -274,7 +275,7 @@ string CamadaEnlaceDadosTransmissoraControleDeErroCodigoDeHamming(string quadro)
 	cout << "Codigo De Hamming Transmissora:"
 		 << quadroFinal << " \n"
 		 << endl;
-	return quadro;
+	return quadroFinal;
 } //fim do metodo CamadaEnlaceDadosTransmissoraControleDeErroCodigoDehamming
 
 /* **********************************************************************
@@ -380,9 +381,9 @@ string CamadaEnlaceDadosReceptoraControleDeErroCodigoDeHamming(string quadro)
 
 	for (i = 0; i < quadro.size(); i++)
 	{
-		if (i == pow(2, BitsParidade))
+		if (i == pow(2, BitsParidade)-1)
 		{
-			cout << "P" << i << ": " << quadro[i] << "\n"
+			cout << "P" << i+1<< ": " << quadro[i] << "\n"
 				 << endl;
 			QuadroP += quadro[i];
 			BitsParidade++;
@@ -396,12 +397,12 @@ string CamadaEnlaceDadosReceptoraControleDeErroCodigoDeHamming(string quadro)
 	for (i = 0; i <= BitsParidade; i++)
 	{
 		numberOf1 = numde1s_pn(pow(2, BitsParidade), quadro); //fun�ao retorna numero de 1s de uma posicao Pn
-		numberOf1 += QuadroP[i];
+		numberOf1 += QuadroP[i]; //somando o p
 		if ((numberOf1 % 2) != 0)
 		{
 			cout << "Mensagem com erro!!! \n"
 				 << endl;
-			exit(1);
+		//	exit(1);
 		}
 	}
 	cout << "Mensagem: \n"
