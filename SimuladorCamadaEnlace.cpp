@@ -115,7 +115,7 @@ void MeioDeComunicacao(string fluxoBrutoDeBits)
 	int erro, porcentagemDeErros, BitABit;
 	string fluxoBrutoDeBitsPontoA, fluxoBrutoDeBitsPontoB;
 
-	porcentagemDeErros = 50;				   //10%, 20%, 30%, 40%, ..., 100%  <-------
+	porcentagemDeErros = 0;				   //10%, 20%, 30%, 40%, ..., 100%  <-------
 	fluxoBrutoDeBitsPontoA = fluxoBrutoDeBits; //<-------
 	while (fluxoBrutoDeBitsPontoB.length() != fluxoBrutoDeBitsPontoA.length())
 	{
@@ -533,6 +533,12 @@ string CamadaEnlaceDadosReceptoraControleDeErroCRC(string quadro)
 		cout << "Resto diferente de zero, quadro com erros" << endl;
 	} 
 	cout << "Resto: " << quadroresto << endl;
+
+	int tamanhoquadro = quadro.size();
+	quadro[tamanhoquadro - (geradorcrc.size()-1)] = '\0';
+
+
+
 	cout << "Quadro: " << quadro << endl;
 	getchar();
 
