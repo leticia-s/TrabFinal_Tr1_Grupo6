@@ -8,8 +8,8 @@ Grupo 6:
 	Christian Braga de Almeida Pires, 12/0028379
 *********************************************************** */
  #include "SimuladorCamadaFisica.cpp"  // inclusao das funcoes da camada fisica
-
-#include <time.h>
+#include <math.h>//necessária para usar as funcao de pontenciacao pow(variavel, expoente)
+#include <time.h> //srand
  //declaracao de funcoes   --- Nao e para fazer o de Enquadramento
 
 void CamadaEnlaceDadosTransmissora (string quadro);
@@ -25,6 +25,7 @@ string CamadaEnlaceDadosReceptoraControleDeErroBitDeParidadePar (string quadro )
 string CamadaEnlaceDadosReceptoraControleDeErroBitDeParidadeImpar(string quadro);
 string CamadaEnlaceDadosReceptoraControleDeErroCRC (string quadro ) ;
 string CamadaEnlaceDadosReceptoraControleDeErroCodigoDeHamming (string quadro );
+int numde1s_pn(int posicao_pn, string quadro);
 
 int tipoDeControleDeErro; 
 
@@ -209,6 +210,7 @@ string CamadaEnlaceDadosTransmissoraControleDeErroCRC (string quadro ) {
 
 string CamadaEnlaceDadosTransmissoraControleDeErroCodigoDeHamming (string quadro ) {
  //implementacao do algoritmo
+ 	
 	//return quadro;
 }//fim do metodo CamadaEnlaceDadosTransmissoraControleDeErroCodigoDehamming
 
@@ -297,4 +299,26 @@ string CamadaEnlaceDadosReceptoraControleDeErroCodigoDeHamming (string quadro ) 
  	//return quadro;
 }//fim do metodo CamadaEnlaceDadosReceptoraControleDeErroCodigoDeHamming
 
+/* **********************************************************************
+*******************Funcao para CodigoDeHamming***************************
+************************************************************************/
+
+//funcao retorna numero de 1s de um "Pn" (p1,p2,p4,p8,p16...) 
+int numde1s_pn(int posicao_pn, string quadro){
+	int cont,pos, pula_prox_conjunto_pn;
+	pula_prox_conjunto_pn = posicao_pn;//atualiza primeiro conjunto n
+	while(pula_prox_conjunto_pn<=quadro.size()){
+		pos = pula_prox_conjunto_pn; //atualiza onde inicia cada conjunto n-n
+		//conta numero de uns do conjunto n 
+		for(int i=0;i<posicao_pn;i++){
+			//nao pode passa do tamanho da string e nao pode conta o bit do Pn 
+			if(quadro[pos-1] == '1' && pos <= quadro.size() && pos != posicao_pn){
+				cont++;
+			}	
+			pos++; //atualiza proximo bit
+		}
+		pula_prox_conjunto_pn += 2*posicao_pn;
+	}
+	return cont;		
+};
 
