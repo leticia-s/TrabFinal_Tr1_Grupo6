@@ -352,7 +352,7 @@ string CamadaEnlaceDadosTransmissoraControleDeErroCodigoDeHamming(string quadro)
 	{
 		numberOf1 = numde1s_pn(pow(2, indiceP), quadroFinal); //funcao retorna numero de 1s de uma posicao Pn
 		//se for impar muda para 1, pois todos pn estao com zeros
-		if ((numberOf1 % 2) != 0)
+		if ((numberOf1 % 2) != 0) //usamos paridade par
 			quadroFinal[pow(2, indiceP) - 1] = '1';
 		//imprimi cada bit de paridade
 		cout << "P" << pow(2, indiceP) << ": " << quadroFinal[pow(2, indiceP) - 1]<< " | ";
