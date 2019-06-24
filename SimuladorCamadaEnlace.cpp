@@ -570,7 +570,7 @@ string CamadaEnlaceDadosReceptoraControleDeErroCodigoDeHamming(string quadro)
 	
 	}	cout << endl;
     //verificar cada paridade para ver se tem erro
-	for (i = 0; i < BitsParidade - 1; i++)
+	for (i = 0; i < BitsParidade; i++)
 	{
 		numberOf1 = numde1s_pn(pow(2, i), quadro); //funcao retorna numero de 1s de uma posicao Pn
 		// se o numero de 1s de Pn + bit de paridade Pn for igual a 1, ou seja for impar, entao tem erro
