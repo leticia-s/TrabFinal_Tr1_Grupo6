@@ -523,7 +523,6 @@ string CamadaEnlaceDadosReceptoraControleDeErroCRC(string quadro)
 	
 	if(quadroresto[0] == '\0') {
 		cout << "Resto zero, quadro sem erros" << endl;
-		exit(1);
 	}
 	else if (quadroresto[0] == '0') {
 		for (i=0; quadroresto[i] != '\0'; i++) {
