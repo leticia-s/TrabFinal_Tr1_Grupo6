@@ -1,0 +1,15 @@
+Grupo 6:
+	(Supervisora) Leticia de Souza Soares,  15/0015178
+	Thiaggo Ferreira Bispo de Souza, 	17/0157024
+	David Potolski Lafeta, 			15/0122969 
+	Filipi Teles da Silva, 			12/0117754
+	Christian Braga de Almeida Pires, 	12/0028379
+
+
+Instruções:
+
+- Compilar o arquivo "SimuladorCamadaEnlace.cpp";
+- Colocar string para ser lida no arquivo "text_string.txt";
+- Arquivo "SimuladorCamadaFisica.cpp" contém funções que não precisaram sofrer 
+"NENHUMA alteração" para fazer a camada de enlace;
+- Cada arquivo tem a declaração de todas as funções contidas nele no inicio de cada um.
